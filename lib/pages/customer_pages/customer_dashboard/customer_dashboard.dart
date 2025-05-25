@@ -6,12 +6,12 @@ import 'package:semester_project/widgets/circle_avatar/custom_circle_avatar.dart
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 import 'package:semester_project/widgets/glass_box/custom_glassbox.dart';
-import '../../provider/customer_provider.dart' show CustomerProvider;
-import '../../routes/route_generator_constants.dart';
-import '../../widgets/bottom_navbar/custom_bottom_navbar.dart';
-import '../../widgets/container/custom_container.dart';
-import '../../widgets/text/custom_text.dart';
-import '../../widgets/textfield/custom_textfield.dart';
+import '../../../provider/customer_provider.dart' show CustomerProvider;
+import '../../../routes/route_generator_constants.dart';
+import '../../../widgets/bottom_navbar/custom_bottom_navbar.dart';
+import '../../../widgets/container/custom_container.dart';
+import '../../../widgets/text/custom_text.dart';
+import '../../../widgets/textfield/custom_textfield.dart';
 
 class CustomerDashboard extends StatefulWidget {
   const CustomerDashboard({super.key});
