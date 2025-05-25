@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 
-import '../../routes/route_generator_constants.dart';
-import '../../widgets/bottom_navbar/custom_bottom_navbar.dart';
-import '../../widgets/colors/custom_colors.dart';
-import '../../widgets/container/custom_container.dart';
-import '../../widgets/text/custom_text.dart';
+import '../../../routes/route_generator_constants.dart';
+import '../../../widgets/bottom_navbar/custom_bottom_navbar.dart';
+import '../../../widgets/colors/custom_colors.dart';
+import '../../../widgets/container/custom_container.dart';
+import '../../../widgets/text/custom_text.dart';
 
 class CustomerTreatmentPage extends StatefulWidget {
   const CustomerTreatmentPage({super.key});

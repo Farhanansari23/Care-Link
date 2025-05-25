@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../pages/customer_pages/customer_dashboard.dart';
+import '../pages/customer_pages/customer_dashboard/customer_dashboard.dart';
 import '../routes/route_generator_constants.dart';
 import 'database.dart';
 

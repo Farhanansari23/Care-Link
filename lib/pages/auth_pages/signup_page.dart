@@ -222,16 +222,16 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: 32,
                               width: MediaQuery.of(context).size.width * 0.80,
                               onPressed: () {
-                                Navigator.of(context).pushNamed(UserConstants.userDashboard);
-                                // if(_formState.currentState!.validate()){
-                                //   setState(() {
-                                //     name = authProvider.signUpNameTextEditingController.value.text;
-                                //     email = authProvider.signUpEmailTextEditingController.value.text;
-                                //     password = authProvider.signUpPasswordTextEditingController.value.text;
-                                //   });
-                                //   registration();
-                                //
-                                // }
+                                // Navigator.of(context).pushNamed(UserConstants.userDashboard);
+                                if(_formState.currentState!.validate()){
+                                  setState(() {
+                                    name = authProvider.signUpNameTextEditingController.value.text;
+                                    email = authProvider.signUpEmailTextEditingController.value.text;
+                                    password = authProvider.signUpPasswordTextEditingController.value.text;
+                                  });
+                                  registration();
+
+                                }
                               },
                               backgroundColor: CustomColors.primaryColor2,
                               widget: CustomText(

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 
-import '../../widgets/container/custom_container.dart';
-import '../../widgets/text/custom_text.dart';
+import '../../../widgets/container/custom_container.dart';
+import '../../../widgets/text/custom_text.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({super.key});

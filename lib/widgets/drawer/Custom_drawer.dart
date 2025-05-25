@@ -1,0 +1,149 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../routes/route_generator_constants.dart';
+import '../buttons/custom_elevatedbutton.dart';
+import '../colors/custom_colors.dart';
+import '../list_tile/custom_list_tile.dart';
+import '../text/custom_text.dart'; // Ensure this import is correct
+
+class CustomDrawer extends StatelessWidget {
+  CustomDrawer({
+    super.key,
+    this.isLogoutActive = false,
+    this.isHomeActive = false,
+    this.isTreatmentActive = false,
+    this.isHospitalActive = false,
+    this.isProfileActive = false,
+  });
+
+  final bool isLogoutActive;
+  final bool isHomeActive;
+  final bool isTreatmentActive;
+  final bool isHospitalActive;
+  final bool isProfileActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      width: MediaQuery.of(context).size.width * 0.7,
+      child: Container(
+        color: Colors.white,
+        child: ListView(
+          children: [
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 40.0,
+                left: 16.0,
+                bottom: 16.0,
+              ),
+              child: Container(
+                child: Row(
+                  children: [
+                    const Icon(FontAwesomeIcons.user, size: 24,color: Colors.black,),
+                  ],
+                ),
+              ),
+            ),
+            Divider(
+              thickness: 0.8,
+              color: CustomColors.primaryBlack,
+            ),
+            CustomListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed(UserConstants.userDashboard);
+              },
+              isTabActive: isHomeActive,
+             icon: FontAwesomeIcons.home,
+              iconSize: 18,
+              text: 'Home',
+              textColor: Colors.black,
+              tabColor: CustomColors.lightBlue,
+            ),
+            CustomListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed(UserConstants.userTreatmentPage);
+              },
+              isTabActive: isTreatmentActive,
+              icon: FontAwesomeIcons.stethoscope,
+              tabColor: CustomColors.lightBlue,
+              iconSize: 20,
+              imgColor: Colors.black,
+              text: 'Treatment',
+              textColor: Colors.black,
+            ),
+            CustomListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed(UserConstants.userHospitalListPage);
+              },
+              isTabActive: isHospitalActive,
+              icon: FontAwesomeIcons.hospital,
+              iconSize: 20,
+              text: 'Hospital',textColor: Colors.black,
+            ),
+            CustomListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed(UserConstants.userProfilePage);
+              },
+              isTabActive: isProfileActive,
+              icon: Icons.person,
+              iconSize:24,
+              text: 'Profile',textColor: Colors.black,
+            ),
+            CustomListTile(
+              onTap: (){
+                openAlertDialog(context);
+              },
+              isTabActive: isLogoutActive,
+              icon: FontAwesomeIcons.arrowRightFromBracket,
+              iconSize: 20,
+              text: 'Log Out',textColor: Colors.black,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//-------------------------------------------------------------Alert Dialog---------------------------------------------------------------------------------------------------------------------------//
+void openAlertDialog(context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: CustomText(
+            text: 'Logout',
+            fontWeight: FontWeight.w600,
+            size: 24,
+          ),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomText(text: 'Are you sure you want to logout?')
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomElevatedButton(onPressed: (){
+                  Navigator.pop(context);
+                }, widget:  CustomText(text:'Cancel'),backgroundColor:CustomColors.lightRed,),
+                CustomElevatedButton(
+                  onPressed: (){
+                    Navigator.of(context).pushNamed(UserConstants.logInPage);
+                },
+                  widget: CustomText(text: 'Yes'),backgroundColor: CustomColors.lightBlue,)
+              ],
+            )
+
+          ],
+        );
+      });
+}
+
