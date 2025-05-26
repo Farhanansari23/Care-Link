@@ -10,9 +10,9 @@ import 'package:semester_project/provider/customer_provider.dart';
 import 'package:semester_project/routes/route_generator.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
 
-void main()async{
-  WidgetsFlutterBinding.ensureInitialized(); // Required for async init
-  await Firebase.initializeApp();// Add this line
+void main(){
+  // WidgetsFlutterBinding.ensureInitialized(); // Required for async init
+  // await Firebase.initializeApp();// Add this line
   runApp(MyApp());
 }
 
