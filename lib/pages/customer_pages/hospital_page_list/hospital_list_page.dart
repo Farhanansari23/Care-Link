@@ -5,7 +5,7 @@ import 'package:semester_project/routes/route_generator_constants.dart';
 import 'package:semester_project/widgets/container/custom_container.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 import 'package:semester_project/widgets/text/custom_text.dart';
-import '../../../provider/customer_hospitaidetail_provider.dart';
+import '../../../provider/customer_provider/customer_hospitaidetail_provider.dart';
 import '../../../widgets/colors/custom_colors.dart';
 import '../../../widgets/glass_box/custom_glassbox.dart';
 import '../../../widgets/textfield/custom_textfield.dart';

@@ -3,7 +3,7 @@ import 'package:cloudinary_url_gen/transformation/region.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/auth_provider.dart';
+import '../../provider/auth_provider/auth_provider.dart';
 import '../../routes/route_generator_constants.dart';
 import '../../services/auth.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';

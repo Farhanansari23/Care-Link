@@ -7,10 +7,11 @@ import 'package:provider/provider.dart';
 import 'package:semester_project/widgets/buttons/custom_elevatedbutton.dart';
 import 'package:semester_project/widgets/text/custom_text.dart';
 
-import '../../../provider/customer_doctorsdetail_provider.dart';
+import '../../../provider/customer_provider/customer_doctorsdetail_provider.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
 import '../../../widgets/colors/custom_colors.dart';
 import '../../../widgets/container/custom_container.dart';
+import '../../../widgets/textfield/custom_textfield.dart';
 
 class CustomersDoctorDescriptionPage extends StatefulWidget {
   const CustomersDoctorDescriptionPage({super.key});
@@ -21,7 +22,7 @@ class CustomersDoctorDescriptionPage extends StatefulWidget {
 
 class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescriptionPage> {
 
-
+  final _confirmBookingFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,44 +135,35 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                 child: CustomText(text: 'Schedule',isHeading: true,),
               ),
               SizedBox(height: 16,),
-              // CustomContainer(
-              //   horizontalMargin: 32,
-              //   horizontalPad: 0,
-              //   verticalPad: 8,
-              //   color: CustomColors.backgroudColor,
-              //   child: CustomText(
-              //     text: "Tuesday/Thursday:9:00/12:30",
-              //     maxLines: 3,
-              //     textOverflow: TextOverflow.ellipsis,
-              //   ),
-              // ),
-              CustomContainer(
-            color: Colors.white,
-            height: 0.16,
-            horizontalMargin: 16,
-            child: DatePicker(
-              DateTime.now(),
-              initialSelectedDate: DateTime.now(),
-              width: 60,
-              selectionColor:CustomColors.lightBlue,
-              dateTextStyle: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 24
-              ),
-              onDateChange: (date){
-                customersDoctorDetailProvider.setDateTime(date);
-                print(customersDoctorDetailProvider.selectedDate);
-              },
-            ),
-          ),
-              SizedBox(height: 16,),
+          //     CustomContainer(
+          //   color: Colors.white,
+          //   height: 0.16,
+          //   horizontalMargin: 16,
+          //   child: DatePicker(
+          //     DateTime.now(),
+          //     initialSelectedDate: DateTime.now(),
+          //     width: 60,
+          //     selectionColor:CustomColors.lightBlue,
+          //     dateTextStyle: GoogleFonts.poppins(
+          //         color: Colors.black,
+          //         fontSize: 24
+          //     ),
+          //     onDateChange: (date){
+          //       customersDoctorDetailProvider.setDateTime(date);
+          //       print(customersDoctorDetailProvider.selectedDate);
+          //     },
+          //   ),
+          // ),
+          //     SizedBox(height: 16,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomElevatedButton(
                     width: 0.8,
                     backgroundColor: CustomColors.lightBlue,
-                      onPressed: (){},
+                      onPressed: (){
+                      openAlertDialog(context);
+                      },
                       widget: CustomText(
                         text: 'Book Now',isContent: true,color: Colors.white,
                       ),
@@ -182,6 +174,89 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
               );
         }
       ),
+    );
+  }
+  //---------------------------------------------------------------------------Alert Dialog------------------------------------------------------------------------------------------------------------//
+
+  void openAlertDialog(context){
+    showDialog(context: context,
+        builder: (BuildContext context){
+        return AlertDialog(
+          backgroundColor: CustomColors.primaryWhite,
+          elevation: 10,
+          title: Center(
+              child: CustomText(
+                text: 'Details',
+                size: 24,
+                fontWeight: FontWeight.w600,
+              )),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: SingleChildScrollView(
+              child: Consumer<CustomersDoctorDetailProvider>(
+                builder: (context,customersDoctorDetailProvider,_) {
+                  return Form(
+                    key: _confirmBookingFormKey,
+                    child: Column(
+                      children: [
+                        TextFromFieldWithPrefixSuffix(
+                          controller: customersDoctorDetailProvider.dateController,
+                          hintText: 'Select Date', // Default border color
+                          borderRadius: 16,
+                          applySuffixIcon: true,
+                          suffixIcon: InkWell(
+                            onTap: (){},
+                            child: Icon(
+                              Icons.calendar_month,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                          validator: (Value) {
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 8,),
+                        TextFromFieldWithPrefixSuffix(
+                          controller: customersDoctorDetailProvider.timeController,
+                          hintText: 'Select Time', // Default border color
+                          borderRadius: 16,
+                          applySuffixIcon: true,
+                          suffixIcon: InkWell(
+                            onTap: (){},
+                            child: Icon(
+                              Icons.watch_later_outlined,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                          validator: (Value) {
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 8,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomElevatedButton(
+                                onPressed: (){},
+                                backgroundColor: CustomColors.lightRed,
+                                widget: CustomText(text: 'Back',isContent: true,),
+                            ),
+                            CustomElevatedButton(
+                                onPressed: (){},
+                                backgroundColor: CustomColors.lightBlue,
+                                widget: CustomText(text: 'Ok',isContent: true,),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              ),
+            ),
+          ),
+        );
+        },
     );
   }
 }

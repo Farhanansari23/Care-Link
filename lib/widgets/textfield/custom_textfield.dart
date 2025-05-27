@@ -167,7 +167,7 @@ class _TextFromFieldWithPrefixSuffixState
                     ? BorderSide(
                     color: Colors.white.withOpacity(0.3), width: 1.5)
                     :  BorderSide(
-                  color: widget.focusedBorderColor ?? widget.borderColor ?? Colors.blue,
+                  color: widget.focusedBorderColor ?? widget.borderColor ?? Colors.grey,
                   width: 1.5,
                 ),
               ),

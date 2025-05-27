@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/auth_provider.dart';
+import '../../provider/auth_provider/auth_provider.dart';
 import '../../routes/route_generator_constants.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';
 import '../../widgets/colors/custom_colors.dart';
@@ -129,8 +129,7 @@ class _SignupPageState extends State<SignupPage> {
                               height: 16,
                             ),
                             TextFromFieldWithPrefixSuffix(
-                              controller:
-                              authProvider.signUpNameTextEditingController,
+                              controller: authProvider.signUpNameTextEditingController,
                               glassEffect: true,
                               hintText: 'Enter Your Name',
                               blurAmount: 5.0,
