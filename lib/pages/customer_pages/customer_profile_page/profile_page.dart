@@ -62,7 +62,17 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                       SizedBox(width: 8,),
                       CustomText(text: 'Farhan Ansari',isContent: true,),
                       Spacer(),
-                      FaIcon(FontAwesomeIcons.pen),
+                      InkWell(
+                        onTap: (){
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              useSafeArea: true,
+                              context: context,
+                              builder: (context) =>
+                                  _profileBottomSheet(context));
+                        },
+                          child: FaIcon(FontAwesomeIcons.pen),
+                      ),
                     ],
                   ),
                   SizedBox(height: 8,),
@@ -112,4 +122,20 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
       ),
     );
   }
+  //-------------------------------------------------------------------BottomSheet------------------------------------------------------------------------------------------------------------------------------------//
+
+ Widget _profileBottomSheet(context){
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16.0),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.90,
+        child: Column(
+          children: [
+            CustomText(text: 'Name',isContent: true,)
+
+          ],
+        ),
+      ),
+    );
+}
 }

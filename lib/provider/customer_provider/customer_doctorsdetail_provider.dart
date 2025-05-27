@@ -5,11 +5,11 @@ class CustomersDoctorDetailProvider extends ChangeNotifier {
 
   late DateTime _selectedDate;
   final _searchController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _timeController = TextEditingController();
 
   TextEditingController get searchController => _searchController;
-  DateTime get selectedDate => _selectedDate;
+  TextEditingController get dateController => _dateController;
+  TextEditingController get timeController => _timeController;
 
-  void setDateTime(date){
-    _selectedDate = date;
-  }
 }
