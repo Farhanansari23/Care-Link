@@ -127,7 +127,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                                    ],
                                                  )),
                                            ),
-                                           SizedBox(height: 16,),
+                                           SizedBox(height: 8,),
                                            Container(
                                              child: GlassBox(
                                                  height: MediaQuery.of(context).size.height * 0.056,
