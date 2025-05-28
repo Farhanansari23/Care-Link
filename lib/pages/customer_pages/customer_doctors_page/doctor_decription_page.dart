@@ -3,6 +3,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:semester_project/widgets/buttons/custom_elevatedbutton.dart';
 import 'package:semester_project/widgets/text/custom_text.dart';
@@ -23,6 +24,10 @@ class CustomersDoctorDescriptionPage extends StatefulWidget {
 class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescriptionPage> {
 
   final _confirmBookingFormKey = GlobalKey<FormState>();
+  String dateString = '';
+  String formattedDate = '';
+  DateTime _dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,7 +210,9 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                           borderRadius: 16,
                           applySuffixIcon: true,
                           suffixIcon: InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              _showDatePicker(context);
+                            },
                             child: Icon(
                               Icons.calendar_month,
                               color: Colors.grey.shade600,
@@ -237,7 +244,9 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomElevatedButton(
-                                onPressed: (){},
+                                onPressed: (){
+
+                                },
                                 backgroundColor: CustomColors.lightRed,
                                 widget: CustomText(text: 'Back',isContent: true,),
                             ),
@@ -258,5 +267,18 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
         );
         },
     );
+  }
+  void _showDatePicker(context){
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2040),
+    ).then((value){
+      setState(() {
+       _dateTime = value!;
+       print(_dateTime);
+      });
+    });
   }
 }
