@@ -26,7 +26,9 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
   final _confirmBookingFormKey = GlobalKey<FormState>();
   String dateString = '';
   String formattedDate = '';
+  String formattedTime = '';
   DateTime _dateTime = DateTime.now();
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
   // }
   
   Widget body(context){
+    CustomersDoctorDetailProvider customersDoctorDetailProvider = Provider.of<CustomersDoctorDetailProvider>(context,listen: false);
     return SafeArea(
       child: Consumer<CustomersDoctorDetailProvider>(
         builder: (context,customersDoctorDetailProvider,_) {
@@ -140,26 +143,6 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                 child: CustomText(text: 'Schedule',isHeading: true,),
               ),
               SizedBox(height: 16,),
-          //     CustomContainer(
-          //   color: Colors.white,
-          //   height: 0.16,
-          //   horizontalMargin: 16,
-          //   child: DatePicker(
-          //     DateTime.now(),
-          //     initialSelectedDate: DateTime.now(),
-          //     width: 60,
-          //     selectionColor:CustomColors.lightBlue,
-          //     dateTextStyle: GoogleFonts.poppins(
-          //         color: Colors.black,
-          //         fontSize: 24
-          //     ),
-          //     onDateChange: (date){
-          //       customersDoctorDetailProvider.setDateTime(date);
-          //       print(customersDoctorDetailProvider.selectedDate);
-          //     },
-          //   ),
-          // ),
-          //     SizedBox(height: 16,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -200,6 +183,9 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
             child: SingleChildScrollView(
               child: Consumer<CustomersDoctorDetailProvider>(
                 builder: (context,customersDoctorDetailProvider,_) {
+                  dateString = customersDoctorDetailProvider.selectedDate.toString().split(" ")[0];
+                  DateTime dateTime = DateTime.parse(dateString);
+                  formattedDate = DateFormat('EEEE d MMMM').format(dateTime);
                   return Form(
                     key: _confirmBookingFormKey,
                     child: Column(
@@ -211,7 +197,16 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                           applySuffixIcon: true,
                           suffixIcon: InkWell(
                             onTap: (){
-                              _showDatePicker(context);
+                              showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2040),
+                              ).then((value){
+                                customersDoctorDetailProvider.setDate(value);
+                                customersDoctorDetailProvider.setDatetime(formattedDate);
+                                print(formattedDate);
+                              });
                             },
                             child: Icon(
                               Icons.calendar_month,
@@ -229,7 +224,15 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                           borderRadius: 16,
                           applySuffixIcon: true,
                           suffixIcon: InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                              ).then((value){
+                                customersDoctorDetailProvider.setTime(value);
+                                customersDoctorDetailProvider.setTimeController(customersDoctorDetailProvider.todaysTime.format(context));
+                              });
+                            },
                             child: Icon(
                               Icons.watch_later_outlined,
                               color: Colors.grey.shade600,
@@ -251,7 +254,9 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                                 widget: CustomText(text: 'Back',isContent: true,),
                             ),
                             CustomElevatedButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
                                 backgroundColor: CustomColors.lightBlue,
                                 widget: CustomText(text: 'Ok',isContent: true,),
                             )
@@ -267,18 +272,5 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
         );
         },
     );
-  }
-  void _showDatePicker(context){
-    showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2040),
-    ).then((value){
-      setState(() {
-       _dateTime = value!;
-       print(_dateTime);
-      });
-    });
   }
 }
