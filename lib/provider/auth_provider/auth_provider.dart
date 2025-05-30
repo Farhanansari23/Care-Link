@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 class AuthenticationProvider extends ChangeNotifier {
   bool _obscure = true;
   bool _obscureForPwd = true;
+  String _userName = '';
 
   final _userEmailTextEditingController = TextEditingController();
   final _userPasswordTextEditingController = TextEditingController();
@@ -29,6 +30,8 @@ class AuthenticationProvider extends ChangeNotifier {
   bool get obscure => _obscure;
   bool get obscureForPwd => _obscureForPwd;
 
+  String get userName => _userName;
+
 
   void toggleObscure() {
     _obscure = !_obscure;
@@ -37,6 +40,10 @@ class AuthenticationProvider extends ChangeNotifier {
 
   void setToggle(){
     _obscureForPwd = !_obscureForPwd;
+    notifyListeners();
+  }
+  void setName(name){
+    _userName = name;
     notifyListeners();
   }
 
