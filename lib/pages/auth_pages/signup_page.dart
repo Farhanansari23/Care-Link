@@ -266,63 +266,63 @@ class _SignupPageState extends State<SignupPage> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Colors.black,
-                              thickness: 0.5,
-                              endIndent: 40,
-                              indent: 40,
-                            ),
-                          ),
-                          CustomText(text: 'or'),
-                          Expanded(
-                            child: Divider(
-                              color: Colors.black,
-                              thickness: 0.5,
-                              endIndent: 40,
-                              indent: 40,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomContainer(
-                            child: Image.asset(
-                              'assets/images/apple.png',
-                              fit: BoxFit.cover,
-                              height: 56,
-                            ),
-                            glassEffect: true,
-                            blurAmount: 6.0,
-                            glassOpacity: 0.15,
-                            // glassBorderWidth: 0.5,
-                          ),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          CustomContainer(
-                            child: Image.asset(
-                              'assets/images/google.png',
-                              fit: BoxFit.cover,
-                              height: 56,
-                            ),
-                            glassEffect: true,
-                            blurAmount: 6.0,
-                            glassOpacity: 0.15,
-                            // glassBorderWidth: 0.5,
-                          ),
-                        ],
-                      ),
+                      // SizedBox(
+                      //   height: 24,
+                      // ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: Colors.black,
+                      //         thickness: 0.5,
+                      //         endIndent: 40,
+                      //         indent: 40,
+                      //       ),
+                      //     ),
+                      //     CustomText(text: 'or'),
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: Colors.black,
+                      //         thickness: 0.5,
+                      //         endIndent: 40,
+                      //         indent: 40,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 24,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     CustomContainer(
+                      //       child: Image.asset(
+                      //         'assets/images/apple.png',
+                      //         fit: BoxFit.cover,
+                      //         height: 56,
+                      //       ),
+                      //       glassEffect: true,
+                      //       blurAmount: 6.0,
+                      //       glassOpacity: 0.15,
+                      //       // glassBorderWidth: 0.5,
+                      //     ),
+                      //     SizedBox(
+                      //       width: 16,
+                      //     ),
+                      //     CustomContainer(
+                      //       child: Image.asset(
+                      //         'assets/images/google.png',
+                      //         fit: BoxFit.cover,
+                      //         height: 56,
+                      //       ),
+                      //       glassEffect: true,
+                      //       blurAmount: 6.0,
+                      //       glassOpacity: 0.15,
+                      //       // glassBorderWidth: 0.5,
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ],

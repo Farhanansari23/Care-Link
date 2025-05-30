@@ -1,4 +1,5 @@
 import 'package:cloudinary_url_gen/transformation/region.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:semester_project/widgets/circle_avatar/custom_circle_avatar.dart
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 import 'package:semester_project/widgets/glass_box/custom_glassbox.dart';
+import '../../../provider/auth_provider/auth_provider.dart';
 import '../../../provider/customer_provider/customer_provider.dart' show CustomerProvider;
 import '../../../routes/route_generator_constants.dart';
 import '../../../widgets/bottom_navbar/custom_bottom_navbar.dart';
@@ -33,6 +35,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
   }
 
   Widget _body(context){
+    AuthenticationProvider authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
     return Consumer<CustomerProvider>(
       builder: (context,customerProvider,_) {
         return SingleChildScrollView(
@@ -58,12 +61,16 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                          ),
                        ),
                        SizedBox(width: 16,),
-                       Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                         CustomText(text: 'Hello,',size: 24,fontWeight: FontWeight.w400,),
-                         CustomText(text: 'Farhan Ansari',size: 24,fontWeight: FontWeight.w600,)
-                       ],),
+                       Consumer<AuthenticationProvider>(
+                         builder: (context,authProvider,_) {
+                           return Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                             CustomText(text: 'Hello,',size: 24,fontWeight: FontWeight.w400,),
+                             CustomText(text: authProvider.userName,size: 24,fontWeight: FontWeight.w600,)
+                           ],);
+                         }
+                       ),
                        Spacer(),
                        CircleAvatar(
                          radius: 28,
