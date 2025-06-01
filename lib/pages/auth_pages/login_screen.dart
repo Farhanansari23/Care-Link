@@ -29,12 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   AuthenticationProvider? authProvider;
 
 
-  String email = '';
-  String password = '';
-  String userName = '';
   late SharedPreferences prefs;
-
-
 
   // userLogin()async{
   //   authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
@@ -85,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
     final Url = 'http://localhost:3000/api/auth/login';
 
     Map<String,dynamic> body = {
-      "email":authProvider.userEmailTextEditingController.text,
+      "email":authProvider.userEmailTextEditingController.text.trim(),
       "pwd":authProvider.userPasswordTextEditingController.text,
     };
 
@@ -103,13 +98,13 @@ class _LoginPageState extends State<LoginPage> {
       print(userName);
       Navigator.of(context).pushNamed(UserConstants.userDashboard);
       // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
+      //ansarifarhan2316@gmail.com
+      //ansariFarhan
     }
-    // print(response.statusCode);
-    // print(response.body);
+    print(response.statusCode);
+    print(response.body);
     // print(body);
   }
-
-
 
   @override
   void initState() {
@@ -262,9 +257,10 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: 32,
                     width: MediaQuery.of(context).size.width * 0.80,
                     onPressed: () {
-                      login();
                       authProvider.setName(userName);
-                      print('hello');
+                      // Navigator.of(context).pushNamed(UserConstants.userDashboard);
+                      login();
+                      // print('hello');
                     },
                     backgroundColor: CustomColors.primaryColor2,
                     widget: CustomText(
