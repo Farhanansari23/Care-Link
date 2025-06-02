@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Column(
             children: [
               CustomText(
-                text: 'Welcome To Medicare',color: Colors.white,size: 32,fontWeight: FontWeight.w600,
+                text: 'Welcome To Care Link',color: Colors.white,size: 32,fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 8,),
               CustomText(

@@ -7,6 +7,7 @@ import 'package:semester_project/widgets/circle_avatar/custom_circle_avatar.dart
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 import 'package:semester_project/widgets/glass_box/custom_glassbox.dart';
+import '../../../const.dart';
 import '../../../provider/auth_provider/auth_provider.dart';
 import '../../../provider/customer_provider/customer_provider.dart' show CustomerProvider;
 import '../../../routes/route_generator_constants.dart';
@@ -67,7 +68,8 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                              CustomText(text: 'Hello,',size: 24,fontWeight: FontWeight.w400,),
-                             CustomText(text: authProvider.userName,size: 24,fontWeight: FontWeight.w600,)
+                             // CustomText(text: 'Farhan Ansari',size: 24,fontWeight: FontWeight.w600,),
+                             CustomText(text:userName,size: 24,fontWeight: FontWeight.w600,)
                            ],);
                          }
                        ),
