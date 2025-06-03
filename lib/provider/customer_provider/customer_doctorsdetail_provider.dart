@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:semester_project/services/custom_services.dart';
 
 class CustomersDoctorDetailProvider extends ChangeNotifier {
 
@@ -36,7 +39,5 @@ class CustomersDoctorDetailProvider extends ChangeNotifier {
       _timeController.text = time;
       notifyListeners();
     }
-
-
 
 }

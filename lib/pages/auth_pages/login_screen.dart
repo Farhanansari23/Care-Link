@@ -100,6 +100,10 @@ class _LoginPageState extends State<LoginPage> {
       // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
       //ansarifarhan2316@gmail.com
       //ansariFarhan
+      //physician
+      //opthalmologist
+      //pediatrician
+      //onocologist
     }
     print(response.statusCode);
     print(response.body);
