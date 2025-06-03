@@ -18,6 +18,15 @@ class CustomerHospitalSearchingPage extends StatefulWidget {
 }
 
 class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchingPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    CustomerHospitalDetailProvider customerHospitalDetailProvider = Provider.of<CustomerHospitalDetailProvider>(context,listen: false);
+    customerHospitalDetailProvider.getDoctorList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +89,7 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                        SizedBox(height: 16,),
                        InkWell(
                          onTap: (){
+                           // customerHospitalDetailProvider.getDoctorList();
                             Navigator.of(context).pushNamed(UserConstants.userDoctorListPage);
                          },
                          child: CustomContainer(
