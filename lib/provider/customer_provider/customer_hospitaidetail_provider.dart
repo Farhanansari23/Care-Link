@@ -10,14 +10,14 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
 
   final _searchController = TextEditingController();
   final String _Url = 'http://localhost:3000/api/healthcenters';
-  Map<String ,dynamic> _hospitalList = {};
+  List<dynamic> _hospitalList = [];
 
   TextEditingController get searchController => _searchController;
   String get Url => _Url;
-  Map<String ,dynamic> get hospitalList => _hospitalList;
+  List<dynamic> get hospitalList => _hospitalList;
 
 
-  void getDoctorList()async {
+  void getHospitalList()async {
     Map<String, String> header = {
       'Content-Type': 'Application/json',
       'Authorization': 'Bearer $accessToken',
@@ -28,9 +28,9 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
      List<dynamic> body = jsonDecode(response.body);
       // print('response= ${response.body}');
-      _hospitalList = body[0];
+      _hospitalList = body;
       print(_hospitalList);
+     notifyListeners();
     }
   }
-
 }

@@ -23,7 +23,7 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
   void initState() {
     // TODO: implement initState
     CustomerHospitalDetailProvider customerHospitalDetailProvider = Provider.of<CustomerHospitalDetailProvider>(context,listen: false);
-    customerHospitalDetailProvider.getDoctorList();
+    customerHospitalDetailProvider.getHospitalList();
     super.initState();
   }
 
@@ -82,8 +82,11 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                 ),
                Expanded(
                  child: ListView.builder(
-                   itemCount: 4,
+                   itemCount: customerHospitalDetailProvider.hospitalList.length,
                      itemBuilder: (context,index){
+                     String name = customerHospitalDetailProvider.hospitalList[index]['name'];
+                     String location = customerHospitalDetailProvider.hospitalList[index]['location'].toString().split('.')[0];
+                     String contact_detail = customerHospitalDetailProvider.hospitalList[index]['contact_detail'].toString();
                    return  Column(
                      children: [
                        SizedBox(height: 16,),
@@ -104,19 +107,28 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                                    Column(
                                      crossAxisAlignment: CrossAxisAlignment.start,
                                      children: [
-                                       CustomText(text: 'Nobel Medical Collage',size: 18,fontWeight: FontWeight.w600,color: Colors.white,),
+                                       CustomText(text: name,size: 18,fontWeight: FontWeight.w600,color: Colors.white,),
                                        SizedBox(height: 16,),
-                                       Container(
-                                         child: GlassBox(
-                                             height: MediaQuery.of(context).size.height * 0.032,
-                                             width: MediaQuery.of(context).size.width * 0.56,
-                                             borderRadius: 8,
-                                             child: Row(
-                                               children: [
-                                                SizedBox(width: 8,),
-                                                 Center(child: CustomText(text: 'Kanchanbari, Biratnagar - 4',color: Colors.white,size: 16,fontWeight: FontWeight.w600,)),
-                                               ],
-                                             )),
+                                       ConstrainedBox(
+                                         constraints: BoxConstraints(maxWidth:  MediaQuery.of(context).size.width * 0.9),
+                                         child: Container(
+                                           child: GlassBox(
+                                               height: MediaQuery.of(context).size.height * 0.032,
+                                               width: MediaQuery.of(context).size.width * 0.56,
+                                               borderRadius: 8,
+                                               child: Row(
+                                                 children: [
+                                                  SizedBox(width: 8,),
+                                                   Center(
+                                                       child: CustomText(
+                                                         text: location,
+                                                         color: Colors.white,
+                                                         size: 16,
+                                                         fontWeight: FontWeight.w600,),
+                                                   ),
+                                                 ],
+                                               )),
+                                         ),
                                        ),
                                        SizedBox(height: 8,),
                                        Container(
@@ -127,7 +139,7 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                                              child: Row(
                                                children: [
                                                  SizedBox(width: 8,),
-                                                 Center(child: CustomText(text: 'Phone: 021-466735',color: Colors.white,size: 16,fontWeight: FontWeight.w600,))
+                                                 Center(child: CustomText(text: 'Phone: ${contact_detail}',color: Colors.white,size: 16,fontWeight: FontWeight.w600,))
                                                ],
                                              )),
                                        ),
