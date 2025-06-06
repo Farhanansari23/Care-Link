@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:semester_project/const.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 
 import '../../../routes/route_generator_constants.dart';
@@ -67,7 +68,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(text: 'Farhan Ansari', isHeading: true),
+                  CustomText(text: userName, isHeading: true),
                   CustomText(text: 'Male, 23 y.o', isSubHeading: true),
                   CustomText(text: 'Height: 5\'7', isContent: true),
                   SizedBox(height: 16),

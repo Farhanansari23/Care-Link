@@ -191,6 +191,55 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                     child: Column(
                       children: [
                         TextFromFieldWithPrefixSuffix(
+                          controller: customersDoctorDetailProvider.nameController,
+                          hintText: 'Enter your name', // Default border color
+                          borderRadius: 16,
+                          applySuffixIcon: true,
+                          suffixIcon: Icon(
+                            Icons.person,
+                            color: Colors.grey.shade600,
+                          ),
+                          validator: (Value) {
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 8,),
+                        TextFromFieldWithPrefixSuffix(
+                          controller: customersDoctorDetailProvider.genderController,
+                          hintText: 'Enter your Gender', // Default border color
+                          borderRadius: 16,
+                          applySuffixIcon: true,
+                          suffixIcon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.grey.shade600,
+                          ),
+                          validator: (Value) {
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 8,),
+                        TextFromFieldWithPrefixSuffix(
+                          controller: customersDoctorDetailProvider.ageController,
+                          hintText: 'Enter your Age', // Default border color
+                          borderRadius: 16,
+                          applySuffixIcon: true,
+                          validator: (Value) {
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 8,),
+                        TextFromFieldWithPrefixSuffix(
+                          controller: customersDoctorDetailProvider.heightController,
+                          hintText: 'Enter your Height', // Default border color
+                          borderRadius: 16,
+                          applySuffixIcon: true,
+                          suffixIcon: Icon(Icons.height),
+                          validator: (Value) {
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 8,),
+                        TextFromFieldWithPrefixSuffix(
                           controller: customersDoctorDetailProvider.dateController,
                           hintText: 'Select Date', // Default border color
                           borderRadius: 16,

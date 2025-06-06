@@ -27,11 +27,13 @@ class TextFromFieldWithPrefixSuffix extends StatefulWidget {
     this.minLine = 1,
     this.maxLines = 1,
     this.onChange,
+    this.onChanged,
     this.onTap,
     this.focusNode,
     this.glassEffect = false, // New parameter for glassmorphism
     this.blurAmount = 5.0, // Blur intensity
-    this.glassOpacity = 0.2, // Opacity level
+    this.glassOpacity = 0.2,
+    // Opacity level
   });
 
   // ... (keep all your existing parameters)
@@ -60,6 +62,7 @@ class TextFromFieldWithPrefixSuffix extends StatefulWidget {
   final int minLine;
   final int maxLines;
   final Function(String?)? onChange;
+  final Function(String?)? onChanged;
   final Function()? onTap;
   final FocusNode? focusNode; // Optional FocusNode
 
@@ -124,7 +127,7 @@ class _TextFromFieldWithPrefixSuffixState
             focusNode: _focusNode,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             onTap: widget.onTap,
-            onChanged: widget.onChange,
+            onChanged: widget.onChanged,
             decoration: InputDecoration(
               filled: true,
               fillColor: widget.glassEffect
