@@ -75,18 +75,19 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                         color: Colors.grey.shade600,
                       ),
                       controller: customerHospitalDetailProvider.searchController,
-                      validator: (value) { 
-                        null;
+                      onChanged: (value){
+                        customerHospitalDetailProvider.filterHospitals( value!);
                       },
+                      validator: (value) => null,
                     ),
                 ),
                Expanded(
                  child: ListView.builder(
-                   itemCount: customerHospitalDetailProvider.hospitalList.length,
+                   itemCount: customerHospitalDetailProvider.searchResult.length,
                      itemBuilder: (context,index){
-                     String name = customerHospitalDetailProvider.hospitalList[index]['name'];
-                     String location = customerHospitalDetailProvider.hospitalList[index]['location'].toString().split('.')[0];
-                     String contact_detail = customerHospitalDetailProvider.hospitalList[index]['contact_detail'].toString();
+                     String name = customerHospitalDetailProvider.searchResult[index]['name'];
+                     String location = customerHospitalDetailProvider.searchResult[index]['location'].toString().split('.')[0];
+                     String contact_detail = customerHospitalDetailProvider.searchResult[index]['contact_detail'].toString();
                    return  Column(
                      children: [
                        SizedBox(height: 16,),

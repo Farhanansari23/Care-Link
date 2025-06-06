@@ -10,13 +10,22 @@ class CustomersDoctorDetailProvider extends ChangeNotifier {
   late DateTime _selectedDate = DateTime.now();
   TimeOfDay _todaysTime = TimeOfDay(hour: 8, minute: 30);
 
-
+  final _nameController = TextEditingController();
+  final _genderController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _heightController = TextEditingController();
   final _searchController = TextEditingController();
   final _dateController = TextEditingController();
   final _timeController = TextEditingController();
 
   DateTime get selectedDate => _selectedDate;
   TimeOfDay get todaysTime => _todaysTime;
+
+  TextEditingController get nameController => _nameController;
+  TextEditingController get genderController => _genderController;
+  TextEditingController get ageController => _ageController;
+  TextEditingController get heightController => _heightController;
+
   TextEditingController get searchController => _searchController;
   TextEditingController get dateController => _dateController;
   TextEditingController get timeController => _timeController;
