@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:semester_project/widgets/container/custom_container.dart';
 import '../colors/custom_colors.dart';
 import '../text/custom_text.dart';
 
-class CustomDropdown extends StatelessWidget {
+class CustomDropdown extends StatefulWidget {
   const CustomDropdown({
     super.key,
     required this.labelText,
@@ -12,6 +13,7 @@ class CustomDropdown extends StatelessWidget {
     this.color,
     this.withPrefixIcon = false,
     this.applyCountryFlag = false,
+    this.borderRadius = 16.0,
   });
 
   final Color? color;
@@ -21,19 +23,28 @@ class CustomDropdown extends StatelessWidget {
   final Function(String?) onChanged;
   final bool withPrefixIcon;
   final bool applyCountryFlag;
+  final double borderRadius;
 
   @override
+  State<CustomDropdown> createState() => _CustomDropdownState();
+}
+
+class _CustomDropdownState extends State<CustomDropdown> {
+  @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: color ?? CustomColors.primaryWhite,
+    return Container(
+      decoration: BoxDecoration(
+        color: widget.color ?? CustomColors.primaryWhite,
+        borderRadius: BorderRadius.circular(widget.borderRadius),
+      ),
       child: DropdownButtonFormField(
-        value: value,
+        value: widget.value,
         isExpanded: true,
         dropdownColor: Colors.white,
-        items: items.map((item) {
+        items: widget.items.map((item) {
           return DropdownMenuItem(
             value: item,
-            child: withPrefixIcon
+            child: widget.withPrefixIcon
                 ? Row(
               mainAxisSize: MainAxisSize.min, // Prevent expanding
               children: [
@@ -55,7 +66,7 @@ class CustomDropdown extends StatelessWidget {
                 ),
               ],
             )
-                : applyCountryFlag
+                : widget.applyCountryFlag
                 ? Row(
               mainAxisSize: MainAxisSize.min, // Prevent expanding
               children: [
@@ -84,11 +95,11 @@ class CustomDropdown extends StatelessWidget {
             ),
           );
         }).toList(),
-        onChanged: onChanged,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           fillColor: CustomColors.primaryWhite,
           focusColor: CustomColors.primaryWhite,
-          labelText: labelText,
+          labelText: widget.labelText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
           ),

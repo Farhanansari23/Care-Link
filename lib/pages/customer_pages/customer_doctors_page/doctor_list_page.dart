@@ -18,6 +18,16 @@ class CustomerDoctorListPage extends StatefulWidget {
 }
 
 class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
+  // String _startTime = '';
+  String _id = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    CustomerHospitalDetailProvider customerHospitalDetailProvider = Provider.of<CustomerHospitalDetailProvider>(context,listen: false);
+    customerHospitalDetailProvider.getHospitalList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +38,8 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
 
   Widget body(context){
     return SafeArea(
-      child: Consumer<CustomersDoctorDetailProvider>(
-        builder: (context,customersDoctorDetailProvider,_) {
+      child: Consumer<CustomerHospitalDetailProvider>(
+        builder: (context,customerHospitalDetailProvider,_) {
           return Column(
             children: [
               CustomContainer(
@@ -39,6 +49,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                   children: [
                     InkWell(
                       onTap: () {
+                        // customerHospitalDetailProvider.clearCache();
                         Navigator.pop(context);
                       },
                       child: CircleAvatar(
@@ -64,22 +75,56 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                     Icons.search,
                     color: Colors.grey.shade600,
                   ),
-                  controller: customersDoctorDetailProvider.searchController,
+                  controller: customerHospitalDetailProvider.searchController,
                   validator: (value) {
                     null;
                   },
                 ),
               ),
               SizedBox(height: 16,),
+             // if(customerHospitalDetailProvider.hospitalID == doctorID)
              Expanded(
                  child: ListView.builder(
-                   itemCount: 3,
+                   itemCount:  customerHospitalDetailProvider.hospitalList.length,
                    itemBuilder: (context,index){
+                     final hospital = customerHospitalDetailProvider.hospitalList[index];
+                     String id = customerHospitalDetailProvider.hospitalList[index]['_id'];
+                     final doctors = hospital['doctor_id'] as List<dynamic>? ?? [];
+                     final doctorID = hospital['doctor_id'][0]['_id'];
+
+
+                     if (doctors.isEmpty) return SizedBox(); // Skip if no doctors
+
+                     // Get the first doctor (or loop if multiple)
+                     final doctor = doctors[0];
+                     final name = doctor['name'] ?? 'N/A';
+                     final description = doctor['description'] ?? 'No Description';
+
+                     // final hospital = customerHospitalDetailProvider.hospitalList[index];
+                     // final name = hospital['doctor_id'][index]['name'];
+                     // final description = hospital['doctor_id'][index]['description'];
+
+                     final schedules = doctor['schedule'] as List<dynamic>? ?? [];
+                     if (schedules.isEmpty) return SizedBox(); // No schedule? Skip.
+
+                     final firstSchedule = schedules[0];
+                     final timeSlots = firstSchedule['time_slots'] as List<dynamic>? ?? [];
+
+                     if (timeSlots.isEmpty) return SizedBox(); // No time slots? Skip.
+
+                     final firstTimeSlot = timeSlots[0];
+                     final startTime = firstTimeSlot['startTime'] ?? 'N/A'; // Already in "09:00 AM" format
+                     final endTime = firstTimeSlot['endTime'] ?? 'N/A';
+
+                     // final firstTime = hospital['doctor_id'][index]['schedule'][index]['time_slots'][index]['startTime'].toString().split('.')[0]; // already in "09:00 AM" format
+                     // final  lastTime = hospital['doctor_id'][index]['schedule'][index]['time_slots'][index]['endTime'].toString().split('.')[0];
+                     // customerHospitalDetailProvider.hospitalID ??
                      return Column(
                        children: [
                          InkWell(
                            onTap: (){
-                             Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
+                             print(doctorID);
+                             // Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
                            },
                            child: CustomContainer(
                              horizontalMargin: 16,
@@ -94,11 +139,11 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                        child: Column(
                                          crossAxisAlignment: CrossAxisAlignment.start,
                                          children: [
-                                           CustomText(text: 'Dr.Dhanshyam Jha',fontWeight: FontWeight.w600,size: 20,color: Colors.white,),
+                                           CustomText(text: name ,fontWeight: FontWeight.w600,size: 20,color: Colors.white,),
                                            ConstrainedBox(
                                              constraints: BoxConstraints(maxWidth:  MediaQuery.of(context).size.width * 0.6),
                                              child: CustomText(
-                                               text: 'Orthopedic Consultation (Foot & Ankle)',
+                                               text: description,
                                                size: 14,color: Colors.white,
                                                textOverflow: TextOverflow.ellipsis,
                                                maxLines: 3,
@@ -109,7 +154,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                            Container(
                                              child: GlassBox(
                                                  height: MediaQuery.of(context).size.height * 0.056,
-                                                 width: MediaQuery.of(context).size.width * 0.50,
+                                                 width: MediaQuery.of(context).size.width * 0.56,
                                                  borderRadius: 64,
                                                  child: Row(
                                                    crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,7 +176,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                            Container(
                                              child: GlassBox(
                                                  height: MediaQuery.of(context).size.height * 0.056,
-                                                 width: MediaQuery.of(context).size.width * 0.50,
+                                                 width: MediaQuery.of(context).size.width * 0.56,
                                                  borderRadius: 64,
                                                  child: Row(
                                                    crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +190,12 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                                        ),
                                                      ),
                                                      SizedBox(width: 8,),
-                                                     CustomText(text: '10:30 11:30 AM',color: Colors.white,size: 16,fontWeight: FontWeight.w600,)
+                                                     Row(
+                                                       children: [
+                                                         CustomText(text: startTime,color: Colors.white,size: 16,fontWeight: FontWeight.w600,),
+                                                         CustomText(text: endTime,color: Colors.white,size: 16,fontWeight: FontWeight.w600,),
+                                                       ],
+                                                     )
                                                    ],
                                                  )),
                                            ),
