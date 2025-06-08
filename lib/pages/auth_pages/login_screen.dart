@@ -80,8 +80,8 @@ class _LoginPageState extends State<LoginPage> {
     final Url = 'http://localhost:3000/api/auth/login';
 
     Map<String,dynamic> body = {
-      "email":authProvider.userEmailTextEditingController.text.trim(),
-      "pwd":authProvider.userPasswordTextEditingController.text,
+      "email":"ansarifarhan2316@gmail.com",
+      "pwd":"ansariFarhan",
     };
 
     var response = await http.post(Uri.parse(Url),

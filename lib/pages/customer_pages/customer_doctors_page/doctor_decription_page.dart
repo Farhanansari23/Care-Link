@@ -12,6 +12,7 @@ import '../../../provider/customer_provider/customer_doctorsdetail_provider.dart
 import '../../../widgets/appbar/custom_appbar.dart';
 import '../../../widgets/colors/custom_colors.dart';
 import '../../../widgets/container/custom_container.dart';
+import '../../../widgets/dropdown/custom_dropdown.dart';
 import '../../../widgets/textfield/custom_textfield.dart';
 
 class CustomersDoctorDescriptionPage extends StatefulWidget {
@@ -193,7 +194,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                         TextFromFieldWithPrefixSuffix(
                           controller: customersDoctorDetailProvider.nameController,
                           hintText: 'Enter your name', // Default border color
-                          borderRadius: 16,
+                          borderRadius: 8,
                           applySuffixIcon: true,
                           suffixIcon: Icon(
                             Icons.person,
@@ -204,24 +205,19 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                           },
                         ),
                         SizedBox(height: 8,),
-                        TextFromFieldWithPrefixSuffix(
-                          controller: customersDoctorDetailProvider.genderController,
-                          hintText: 'Enter your Gender', // Default border color
-                          borderRadius: 16,
-                          applySuffixIcon: true,
-                          suffixIcon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey.shade600,
-                          ),
-                          validator: (Value) {
-                            return null;
-                          },
-                        ),
+                        CustomDropdown(
+                          borderRadius: 8,
+                            labelText: 'Select Gender',
+                            items: customersDoctorDetailProvider.gender,
+                            value: customersDoctorDetailProvider.defaultGenderValue,
+                            onChanged: (selectedGender) {
+                              customersDoctorDetailProvider.setGender(selectedGender);
+                            }),
                         SizedBox(height: 8,),
                         TextFromFieldWithPrefixSuffix(
                           controller: customersDoctorDetailProvider.ageController,
                           hintText: 'Enter your Age', // Default border color
-                          borderRadius: 16,
+                          borderRadius: 8,
                           applySuffixIcon: true,
                           validator: (Value) {
                             return null;
@@ -231,7 +227,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                         TextFromFieldWithPrefixSuffix(
                           controller: customersDoctorDetailProvider.heightController,
                           hintText: 'Enter your Height', // Default border color
-                          borderRadius: 16,
+                          borderRadius: 8,
                           applySuffixIcon: true,
                           suffixIcon: Icon(Icons.height),
                           validator: (Value) {
@@ -242,7 +238,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                         TextFromFieldWithPrefixSuffix(
                           controller: customersDoctorDetailProvider.dateController,
                           hintText: 'Select Date', // Default border color
-                          borderRadius: 16,
+                          borderRadius: 8,
                           applySuffixIcon: true,
                           suffixIcon: InkWell(
                             onTap: (){
@@ -270,7 +266,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                         TextFromFieldWithPrefixSuffix(
                           controller: customersDoctorDetailProvider.timeController,
                           hintText: 'Select Time', // Default border color
-                          borderRadius: 16,
+                          borderRadius: 8,
                           applySuffixIcon: true,
                           suffixIcon: InkWell(
                             onTap: (){

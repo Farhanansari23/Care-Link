@@ -10,6 +10,10 @@ class CustomersDoctorDetailProvider extends ChangeNotifier {
   late DateTime _selectedDate = DateTime.now();
   TimeOfDay _todaysTime = TimeOfDay(hour: 8, minute: 30);
 
+  List<String> _gender = ["Male", "Female", "Others"];
+  String _selectedGender = '';
+  String _defaultGenderValue = 'Male';
+
   final _nameController = TextEditingController();
   final _genderController = TextEditingController();
   final _ageController = TextEditingController();
@@ -20,6 +24,10 @@ class CustomersDoctorDetailProvider extends ChangeNotifier {
 
   DateTime get selectedDate => _selectedDate;
   TimeOfDay get todaysTime => _todaysTime;
+
+  List<String> get gender => _gender;
+  String get selectedGender => _selectedGender;
+  String get defaultGenderValue => _defaultGenderValue;
 
   TextEditingController get nameController => _nameController;
   TextEditingController get genderController => _genderController;
@@ -48,5 +56,10 @@ class CustomersDoctorDetailProvider extends ChangeNotifier {
       _timeController.text = time;
       notifyListeners();
     }
+
+  void setGender(gender) {
+    _selectedGender = gender;
+    notifyListeners();
+  }
 
 }
