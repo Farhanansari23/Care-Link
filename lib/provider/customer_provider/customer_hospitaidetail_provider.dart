@@ -17,6 +17,8 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
    String _hospitalID = '';
   List<dynamic> _hospitalList = [];
   List<dynamic> _searchResult = [];
+  Map<String,dynamic> _doctorListResult = {};
+  List<dynamic> _doctorList = [];
 
   TextEditingController get searchController => _searchController;
 
@@ -29,6 +31,8 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
 
   List<dynamic> get hospitalList => _hospitalList;
   List<dynamic> get searchResult => _searchResult;
+  List<dynamic> get doctorList => _doctorList;
+  Map<String,dynamic> get doctorListResult => _doctorListResult;
 
 
   void getHospitalList()async {
@@ -37,24 +41,31 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
       'Authorization': 'Bearer $accessToken',
     };
     var response = await http.get(Uri.parse(_Url),headers: header);
-    print(response.statusCode);
+    // print(response.statusCode);
     // print('response= ${response.body}');
     if (response.statusCode == 200) {
      List<dynamic> body = jsonDecode(response.body);
-     // final hospital = body[0];
-      // print('response= ${response.body}');
       _hospitalList = body;
      _searchResult = body;
-     // _name = hospital['doctor_id'][0]['name'];
-     // _description = hospital['doctor_id'][0]['description'];
-     //  _startTime = hospital['doctor_id'][0]['schedule'][0]['time_slots'][0]['startTime'].toString();
-     //  _endTime = hospital['doctor_id'][0]['schedule'][0]['time_slots'][0]['endTime'].toString();
-      // print(_hospitalList);
-      // print(_name);
-      // print(_description);
-      // print(_startTime);
-      // print(_endTime);
      notifyListeners();
+    }
+  }
+
+  void geDoctorByHospitalList()async {
+    Map<String, String> header = {
+      'Content-Type': 'Application/json',
+      'Authorization': 'Bearer $accessToken',
+    };
+    var response = await http.get(Uri.parse('http://localhost:3000/api/healthcenters/$_hospitalID'),headers: header);
+    print(response.statusCode);
+    // print('response= ${response.body}');
+    if (response.statusCode == 200) {
+      Map<String,dynamic> body = jsonDecode(response.body);
+      _doctorListResult = body;
+      _doctorList = body['doctor_id'];
+      print('Doctor List: $_doctorList');
+      // print('response= ${_doctorList}');
+      notifyListeners();
     }
   }
 

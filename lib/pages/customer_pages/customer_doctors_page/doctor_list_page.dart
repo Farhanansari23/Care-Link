@@ -24,7 +24,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
   void initState() {
     // TODO: implement initState
     CustomerHospitalDetailProvider customerHospitalDetailProvider = Provider.of<CustomerHospitalDetailProvider>(context,listen: false);
-    customerHospitalDetailProvider.getHospitalList();
+    customerHospitalDetailProvider.geDoctorByHospitalList();
     super.initState();
   }
 
@@ -82,49 +82,48 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                 ),
               ),
               SizedBox(height: 16,),
-             // if(customerHospitalDetailProvider.hospitalID == doctorID)
              Expanded(
                  child: ListView.builder(
-                   itemCount:  customerHospitalDetailProvider.hospitalList.length,
+                   itemCount:  customerHospitalDetailProvider.doctorList.length,
                    itemBuilder: (context,index){
-                     final hospital = customerHospitalDetailProvider.hospitalList[index];
-                     String id = customerHospitalDetailProvider.hospitalList[index]['_id'];
-                     final doctors = hospital['doctor_id'] as List<dynamic>? ?? [];
-                     final doctorID = hospital['doctor_id'][0]['_id'];
+                     final doctor = customerHospitalDetailProvider.doctorList[index];
+                     //
+                     // String id = customerHospitalDetailProvider.doctorList[index]['_id'];
+                     // String name = customerHospitalDetailProvider.doctorList[index]['name'];
+                     // String description = customerHospitalDetailProvider.doctorList[index]['description'];
+                     //
+                     // String startTime = customerHospitalDetailProvider.doctorList[index]['schedule'][index]['time_slots'][index]['startTime'].toString().split(' ')[0];
+                     // String endTime = customerHospitalDetailProvider.doctorList[index]['schedule'][index]['time_slots'][index]['endTime'].toString().split(' ')[0];
+                     // Safe access to doctor details
+                     String id = doctor['_id'] ?? '';
+                     String name = doctor['name'] ?? 'No name';
+                     String description = doctor['description'] ?? 'No description';
 
+                     // Initialize with default values
+                     String startTime = 'N/A';
+                     String endTime = 'N/A';
 
-                     if (doctors.isEmpty) return SizedBox(); // Skip if no doctors
+                     // Safely access schedule and time slots
+                     if (doctor['schedule'] != null &&
+                         doctor['schedule'].isNotEmpty &&
+                         doctor['schedule'][0]['time_slots'] != null &&
+                         doctor['schedule'][0]['time_slots'].isNotEmpty) {
 
-                     // Get the first doctor (or loop if multiple)
-                     final doctor = doctors[0];
-                     final name = doctor['name'] ?? 'N/A';
-                     final description = doctor['description'] ?? 'No Description';
+                       final timeSlot = doctor['schedule'][0]['time_slots'][0];
+                       startTime = timeSlot['startTime'].toString().split(' ')[0];
+                       endTime = timeSlot['endTime'].toString().split(' ')[0];
+                     }
 
-                     // final hospital = customerHospitalDetailProvider.hospitalList[index];
-                     // final name = hospital['doctor_id'][index]['name'];
-                     // final description = hospital['doctor_id'][index]['description'];
-
-                     final schedules = doctor['schedule'] as List<dynamic>? ?? [];
-                     if (schedules.isEmpty) return SizedBox(); // No schedule? Skip.
-
-                     final firstSchedule = schedules[0];
-                     final timeSlots = firstSchedule['time_slots'] as List<dynamic>? ?? [];
-
-                     if (timeSlots.isEmpty) return SizedBox(); // No time slots? Skip.
-
-                     final firstTimeSlot = timeSlots[0];
-                     final startTime = firstTimeSlot['startTime'] ?? 'N/A'; // Already in "09:00 AM" format
-                     final endTime = firstTimeSlot['endTime'] ?? 'N/A';
-
-                     // final firstTime = hospital['doctor_id'][index]['schedule'][index]['time_slots'][index]['startTime'].toString().split('.')[0]; // already in "09:00 AM" format
-                     // final  lastTime = hospital['doctor_id'][index]['schedule'][index]['time_slots'][index]['endTime'].toString().split('.')[0];
-                     // customerHospitalDetailProvider.hospitalID ??
                      return Column(
                        children: [
                          InkWell(
                            onTap: (){
-                             print(doctorID);
-                             // Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
+                             // print(name);
+                             // print(description);
+                             // print(startTime);
+                             // print(endTime);
+                             // print(id);
+                             Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
                            },
                            child: CustomContainer(
                              horizontalMargin: 16,

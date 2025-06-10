@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:semester_project/const.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
 import 'package:semester_project/widgets/container/custom_container.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
@@ -86,9 +87,8 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                    itemCount: customerHospitalDetailProvider.searchResult.length,
                      itemBuilder: (context,index){
                      String name = customerHospitalDetailProvider.searchResult[index]['name'];
-                     String id = customerHospitalDetailProvider.searchResult[index]['_id'];
-
-                     // String doctorId = customerHospitalDetailProvider.searchResult[index]['doctor_id'][index]['_id'];
+                     final hospital = customerHospitalDetailProvider.searchResult[index];
+                     final selectedHospitalId = hospital['_id'];
                      String location = customerHospitalDetailProvider.searchResult[index]['location'].toString().split('.')[0];
                      String contact_detail = customerHospitalDetailProvider.searchResult[index]['contact_detail'].toString();
                    return  Column(
@@ -96,12 +96,8 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                        SizedBox(height: 16,),
                        InkWell(
                          onTap: (){
-                           List doctors = customerHospitalDetailProvider.searchResult[index]['doctor_id'] ?? [];
-                           if (doctors.isNotEmpty) {
-                             String doctorsId = doctors[0]['_id'];
-                             print(doctorsId);
-                             customerHospitalDetailProvider.setHospitalId(doctorsId);
-                           }
+                           customerHospitalDetailProvider.setHospitalId(selectedHospitalId);
+                           print(selectedHospitalId);
                             Navigator.of(context).pushNamed(UserConstants.userDoctorListPage);
                          },
                          child: CustomContainer(
