@@ -95,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
     if(response.statusCode == 200){
       accessToken = decodedBody["token"];
       userName = decodedBody["user"]["name"];
+      userId = decodedBody["user"]["_id"];
       print(userName);
       Navigator.of(context).pushNamed(UserConstants.userDashboard);
       // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
@@ -107,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     print(response.statusCode);
     print(response.body);
+    print(userId);
     // print(body);
   }
 
