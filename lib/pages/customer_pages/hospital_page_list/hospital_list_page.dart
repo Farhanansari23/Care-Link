@@ -97,7 +97,7 @@ class _CustomerHospitalSearchingPageState extends State<CustomerHospitalSearchin
                        InkWell(
                          onTap: (){
                            customerHospitalDetailProvider.setHospitalId(selectedHospitalId);
-                           print(selectedHospitalId);
+                           // print(selectedHospitalId);
                             Navigator.of(context).pushNamed(UserConstants.userDoctorListPage);
                          },
                          child: CustomContainer(

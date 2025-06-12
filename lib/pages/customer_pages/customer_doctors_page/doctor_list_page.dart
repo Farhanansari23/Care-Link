@@ -87,13 +87,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                    itemCount:  customerHospitalDetailProvider.doctorList.length,
                    itemBuilder: (context,index){
                      final doctor = customerHospitalDetailProvider.doctorList[index];
-                     //
-                     // String id = customerHospitalDetailProvider.doctorList[index]['_id'];
-                     // String name = customerHospitalDetailProvider.doctorList[index]['name'];
-                     // String description = customerHospitalDetailProvider.doctorList[index]['description'];
-                     //
-                     // String startTime = customerHospitalDetailProvider.doctorList[index]['schedule'][index]['time_slots'][index]['startTime'].toString().split(' ')[0];
-                     // String endTime = customerHospitalDetailProvider.doctorList[index]['schedule'][index]['time_slots'][index]['endTime'].toString().split(' ')[0];
+
                      // Safe access to doctor details
                      String id = doctor['_id'] ?? '';
                      String name = doctor['name'] ?? 'No name';
@@ -102,28 +96,30 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                      // Initialize with default values
                      String startTime = 'N/A';
                      String endTime = 'N/A';
+                     String scheduleId = 'N/A';
 
                      // Safely access schedule and time slots
-                     if (doctor['schedule'] != null &&
-                         doctor['schedule'].isNotEmpty &&
-                         doctor['schedule'][0]['time_slots'] != null &&
-                         doctor['schedule'][0]['time_slots'].isNotEmpty) {
+                     if (doctor['schedule'] != null && doctor['schedule'].isNotEmpty) {
 
-                       final timeSlot = doctor['schedule'][0]['time_slots'][0];
-                       startTime = timeSlot['startTime'].toString().split(' ')[0];
-                       endTime = timeSlot['endTime'].toString().split(' ')[0];
+                       // Extract the first schedule's _id
+                       scheduleId = doctor['schedule'][0]['_id'] ?? 'N/A';
+
+                       // Extract time slots (if needed)
+                       if (doctor['schedule'][0]['time_slots'] != null && doctor['schedule'][0]['time_slots'].isNotEmpty) {
+
+                         final timeSlot = doctor['schedule'][0]['time_slots'][0];
+                         startTime = timeSlot['startTime'].toString().split(' ')[0];
+                         endTime = timeSlot['endTime'].toString().split(' ')[0];
+                       }
                      }
 
                      return Column(
                        children: [
                          InkWell(
                            onTap: (){
-                             // print(name);
-                             // print(description);
-                             // print(startTime);
-                             // print(endTime);
-                             // print(id);
-                             Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
+                             print(id);
+
+                             // Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
                            },
                            child: CustomContainer(
                              horizontalMargin: 16,
@@ -192,12 +188,41 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                                      Row(
                                                        children: [
                                                          CustomText(text: startTime,color: Colors.white,size: 16,fontWeight: FontWeight.w600,),
+                                                         SizedBox(width: 8,),
+                                                         CustomText(text: '-',color: Colors.white,isContent: true,),
+                                                         SizedBox(width: 8,),
                                                          CustomText(text: endTime,color: Colors.white,size: 16,fontWeight: FontWeight.w600,),
                                                        ],
                                                      )
                                                    ],
                                                  )),
                                            ),
+                                           // SizedBox(height: 8,),
+                                           // Container(
+                                           //   child: GlassBox(
+                                           //       height: MediaQuery.of(context).size.height * 0.056,
+                                           //       width: MediaQuery.of(context).size.width * 0.56,
+                                           //       borderRadius: 64,
+                                           //       child: Row(
+                                           //         crossAxisAlignment: CrossAxisAlignment.center,
+                                           //         children: [
+                                           //           Padding(
+                                           //             padding: const EdgeInsets.only(left: 5,top: 3),
+                                           //             child: CircleAvatar(
+                                           //               radius: 24,
+                                           //               child: Icon(FontAwesomeIcons.person,color: Colors.white,size: 24,),
+                                           //               backgroundColor: CustomColors.lightBlue,
+                                           //             ),
+                                           //           ),
+                                           //           SizedBox(width: 8,),
+                                           //           Row(
+                                           //             children: [
+                                           //               CustomText(text: scheduleId,color: Colors.white,size: 16,fontWeight: FontWeight.w600,),
+                                           //             ],
+                                           //           )
+                                           //         ],
+                                           //       )),
+                                           // ),
                                          ],
                                        ),
                                      ),
