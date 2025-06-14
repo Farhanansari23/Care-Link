@@ -163,118 +163,126 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             SizedBox(height: 64,),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text: 'Login',
-                    size: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  TextFromFieldWithPrefixSuffix(
-                    controller: authProvider.userEmailTextEditingController,
-                    // fillColor: Colors.black,
-                    glassEffect: true,
-                    hintText: 'Enter your Email',
-                    blurAmount: 4.0,
-                    glassOpacity: 0.4,
-                    borderColor: Colors.white, // Default border color
-                    focusedBorderColor: Colors.blue, // Color when focused
-                    enabledBorderColor: Colors.grey, // Color when enabled
-                    errorBorderColor: Colors.red,
-                    borderRadius: 16,
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: Colors.grey.shade600,
+            CustomContainer(
+              horizontalMargin: 16,
+              horizontalPad: 24,
+              glassEffect: true,
+              height: 0.34,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height * 0.5,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: 'Login',
+                      size: 24,
+                      fontWeight: FontWeight.w600,
                     ),
-                    validator: (value) {
-                      String pattern =
-                          r'^[a-zA-Z]{3,}(?:\.[a-zA-Z]{2,})?@[a-zA-Z]{2,}\.[a-zA-Z]{2,}$';
-                      RegExp regex = RegExp(pattern);
-                      return value!.isEmpty ? 'Email is Required' : null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  TextFromFieldWithPrefixSuffix(
-                    controller: authProvider.userPasswordTextEditingController,
-                    obscure: authProvider.obscure,
-                    glassEffect: true,
-                    hintText: '••••••',
-                    blurAmount: 5.0,
-                    glassOpacity: 0.4,
-                    borderColor: Colors.white, // Default border color
-                    focusedBorderColor: Colors.blue, // Color when focused
-                    enabledBorderColor: Colors.grey, // Color when enabled
-                    errorBorderColor: Colors.red,
-                    borderRadius: 16,
-                    prefixIcon: Icon(
-                      Icons.lock,
-                      color: Colors.grey.shade600,
+                    SizedBox(
+                      height: 16,
                     ),
-                    applySuffixIcon: true,
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        authProvider.toggleObscure();
-                      },
-                      child: Icon(
-                        authProvider.obscure
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                    TextFromFieldWithPrefixSuffix(
+                      controller: authProvider.userEmailTextEditingController,
+                      // fillColor: Colors.black,
+                      glassEffect: true,
+                      hintText: 'Enter your Email',
+                      blurAmount: 4.0,
+                      glassOpacity: 0.4,
+                      borderColor: Colors.white, // Default border color
+                      focusedBorderColor: Colors.blue, // Color when focused
+                      enabledBorderColor: Colors.grey, // Color when enabled
+                      errorBorderColor: Colors.red,
+                      borderRadius: 16,
+                      prefixIcon: Icon(
+                        Icons.email,
                         color: Colors.grey.shade600,
                       ),
+                      validator: (value) {
+                        String pattern =
+                            r'^[a-zA-Z]{3,}(?:\.[a-zA-Z]{2,})?@[a-zA-Z]{2,}\.[a-zA-Z]{2,}$';
+                        RegExp regex = RegExp(pattern);
+                        return value!.isEmpty ? 'Email is Required' : null;
+                      },
                     ),
-                    validator: (value) {
-                      return value!.isEmpty ? 'Password required' : null;
-                    },
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: isChecked,
-                          onChanged: (value) {
-                            setState(() {
-                              isChecked = value!;
-                            });
-                          }),
-                      CustomText(
-                        text: 'Remember me',
-                        isContent: true,
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFromFieldWithPrefixSuffix(
+                      controller: authProvider.userPasswordTextEditingController,
+                      obscure: authProvider.obscure,
+                      glassEffect: true,
+                      hintText: '••••••',
+                      blurAmount: 5.0,
+                      glassOpacity: 0.4,
+                      borderColor: Colors.white, // Default border color
+                      focusedBorderColor: Colors.blue, // Color when focused
+                      enabledBorderColor: Colors.grey, // Color when enabled
+                      errorBorderColor: Colors.red,
+                      borderRadius: 16,
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: Colors.grey.shade600,
                       ),
-                      Spacer(),
-                      InkWell(
-                        onTap: (){
-                          Navigator.of(context).pushNamed(UserConstants.forgotPasswordPage);
+                      applySuffixIcon: true,
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          authProvider.toggleObscure();
                         },
-                        child: CustomText(
-                          text: 'Forgot Password ?',
-                          isContent: true,
+                        child: Icon(
+                          authProvider.obscure
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey.shade600,
                         ),
                       ),
-                    ],
-                  ),
-                  CustomElevatedButton(
-                    borderRadius: 32,
-                    width: MediaQuery.of(context).size.width * 0.80,
-                    onPressed: () {
-                      authProvider.setName(userName);
-                      // Navigator.of(context).pushNamed(UserConstants.userDashboard);
-                      login();
-                      // print('hello');
-                    },
-                    backgroundColor: CustomColors.primaryColor2,
-                    widget: CustomText(
-                      text: 'Login',
-                      isContent: true,
+                      validator: (value) {
+                        return value!.isEmpty ? 'Password required' : null;
+                      },
                     ),
-                  ),
-                ],
+                    Row(
+                      children: [
+                        Checkbox(
+                            value: isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            }),
+                        CustomText(
+                          text: 'Remember me',
+                          isContent: true,
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushNamed(UserConstants.forgotPasswordPage);
+                          },
+                          child: CustomText(
+                            text: 'Forgot Password ?',
+                            isContent: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                    CustomElevatedButton(
+                      borderRadius: 32,
+                      width: MediaQuery.of(context).size.width * 0.80,
+                      onPressed: () {
+                        authProvider.setName(userName);
+                        // Navigator.of(context).pushNamed(UserConstants.userDashboard);
+                        login();
+                        // print('hello');
+                      },
+                      backgroundColor: CustomColors.primaryColor2,
+                      widget: CustomText(
+                        text: 'Login',
+                        isContent: true,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 16,),
