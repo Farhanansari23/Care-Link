@@ -8,6 +8,7 @@ import 'package:semester_project/widgets/buttons/custom_elevatedbutton.dart';
 import 'package:semester_project/widgets/text/custom_text.dart';
 
 import '../../../provider/customer_provider/customer_doctorsdetail_provider.dart';
+import '../../../provider/customer_provider/customer_hospitaidetail_provider.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
 import '../../../widgets/colors/custom_colors.dart';
 import '../../../widgets/container/custom_container.dart';
@@ -29,6 +30,13 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
   String formattedTime = '';
   DateTime _dateTime = DateTime.now();
 
+  void initState() {
+    // TODO: implement initState
+    CustomerHospitalDetailProvider customerHospitalDetailProvider = Provider.of<CustomerHospitalDetailProvider>(context,listen: false);
+    customerHospitalDetailProvider.geDoctorByHospitalList();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +46,12 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
     );
   }
 
-  // PreferredSize _appBar(context) {
-  //   return PreferredSize(
-  //     preferredSize: Size.fromHeight(kToolbarHeight),
-  //     child: AppBar(
-  //       backgroundColor: CustomColors.backgroudColor,
-  //      title: CustomText(text: 'Doctors',isHeading: true,),
-  //       centerTitle: true,
-  //       leading: CircleAvatar(
-  //         radius: 24,
-  //         backgroundColor: Colors.white,
-  //         child: Icon(Icons.chevron_left,size: 32,),
-  //       ),
-  //       actionsPadding: EdgeInsets.symmetric(horizontal: 8),
-  //     ),
-  //   );
-  // }
   
   Widget body(context){
-    CustomersDoctorDetailProvider customersDoctorDetailProvider = Provider.of<CustomersDoctorDetailProvider>(context,listen: false);
+    CustomerHospitalDetailProvider customerHospitalDetailProvider = Provider.of<CustomerHospitalDetailProvider>(context,listen: false);
     return SafeArea(
-      child: Consumer<CustomersDoctorDetailProvider>(
-        builder: (context,customersDoctorDetailProvider,_) {
+      child: Consumer<CustomerHospitalDetailProvider>(
+        builder: (context,customerHospitalDetailProvider,_) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -97,9 +89,9 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomText(text: "Dr.Dhnasyam Jha",isContent: true,),
+                        CustomText(text: customerHospitalDetailProvider.doctorName,isContent: true,),
                         SizedBox(height: 8,),
-                        CustomText(text: "Orthopedic",),
+                        CustomText(text: customerHospitalDetailProvider.doctorCategory,),
                         SizedBox(height: 8,),
                         CustomText(text: "Biratnagar-10, Nepal",),
                       ],
@@ -118,7 +110,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                 verticalPad: 8,
                 color: CustomColors.backgroudColor,
                   child: CustomText(
-                      text: "Dr. Ahmed Mahmoud is dedicated to providing compassionate, patient-centered care. With a focus on preventative cardiology, she works with patients to achieve long-term heart health and overall wellness",
+                      text: customerHospitalDetailProvider.doctorDescription,
                      maxLines: 3,
                      textOverflow: TextOverflow.ellipsis,
                   ),
@@ -133,7 +125,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                 verticalPad: 8,
                 color: CustomColors.backgroudColor,
                 child: CustomText(
-                  text: "Tuesday/Thursday:9:00/12:30",
+                  text: "Tuesday/Thursday:${customerHospitalDetailProvider.doctorStartTime}/${customerHospitalDetailProvider.doctorEndTime}",
                   maxLines: 3,
                   textOverflow: TextOverflow.ellipsis,
                 ),

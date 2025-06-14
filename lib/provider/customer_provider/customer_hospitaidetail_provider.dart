@@ -15,6 +15,13 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
    String _startTime = '';
    String _endTime = '';
    String _hospitalID = '';
+   String _doctorName = '';
+   String _doctorCategory = '';
+   String _doctorDescription = '';
+   String _doctorStartTime = '';
+   String _doctorEndTime = '';
+
+
   List<dynamic> _hospitalList = [];
   List<dynamic> _searchResult = [];
   Map<String,dynamic> _doctorListResult = {};
@@ -28,6 +35,12 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
   String get startTime => _startTime;
   String get endTime => _endTime;
   String get hospitalID => _hospitalID;
+
+  String get doctorName => _doctorName;
+  String get doctorCategory => _doctorCategory;
+  String get doctorDescription => _doctorDescription;
+  String get doctorStartTime => _doctorStartTime;
+  String get doctorEndTime => _doctorEndTime;
 
   List<dynamic> get hospitalList => _hospitalList;
   List<dynamic> get searchResult => _searchResult;
@@ -92,6 +105,14 @@ class CustomerHospitalDetailProvider extends ChangeNotifier {
   void clearCache() {
     _hospitalList = []; // Reset to empty state
     notifyListeners(); // Trigger UI update
+  }
+  void setDoctorDetails(String name,String category,String description,String startTime,String endTime){
+     _doctorName = name;
+     _doctorCategory  = category;
+     _doctorDescription = description;
+     _doctorStartTime = startTime;
+     _doctorEndTime = endTime;
+     notifyListeners();
   }
 
 
