@@ -119,7 +119,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                            onTap: (){
                              print(id);
 
-                             // Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
+                             Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
                            },
                            child: CustomContainer(
                              horizontalMargin: 16,

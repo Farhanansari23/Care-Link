@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../provider/auth_provider/auth_provider.dart';
 import '../../routes/route_generator_constants.dart';
@@ -9,6 +10,8 @@ import '../../widgets/container/custom_container.dart';
 import '../../widgets/dropdown/custom_dropdown.dart';
 import '../../widgets/text/custom_text.dart';
 import '../../widgets/textfield/custom_textfield.dart';
+import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -22,6 +25,8 @@ class _SignupPageState extends State<SignupPage> {
   String email = '';
   String name = '';
   String password = '';
+  String formattedDate = '';
+  String dateString = '';
   AuthenticationProvider? authProvider;
   final _formState = GlobalKey<FormState>();
 
@@ -81,6 +86,9 @@ class _SignupPageState extends State<SignupPage> {
   Widget _body(context) {
     return Consumer<AuthenticationProvider>(
         builder: (context, authProvider, _) {
+          dateString = authProvider.selectedDate.toString().split(" ")[0];
+          DateTime dateTime = DateTime.parse(dateString);
+          formattedDate = DateFormat('EEEE d MMMM').format(dateTime);
           return Form(
             key: _formState,
             child: Container(
@@ -294,7 +302,7 @@ class _SignupPageState extends State<SignupPage> {
                                 TextFromFieldWithPrefixSuffix(
                                   controller: authProvider.signUpUserWeightTextEditingController,
                                   glassEffect: true,
-                                  hintText: 'Enter your Wight',
+                                  hintText: 'Enter your Weight',
                                   blurAmount: 5.0,
                                   glassOpacity: 0.4,
                                   borderColor: Colors.white,
@@ -315,9 +323,9 @@ class _SignupPageState extends State<SignupPage> {
                                   height: 16,
                                 ),
                                 TextFromFieldWithPrefixSuffix(
-                                  controller: authProvider.signUpUserDobTextEditingController,
+                                  controller: authProvider.dateController,
                                   glassEffect: true,
-                                  hintText: 'Enter your Date of birth',
+                                  hintText: 'Enter your Date of Birth',
                                   blurAmount: 5.0,
                                   glassOpacity: 0.4,
                                   borderColor: Colors.white, // Default border color
@@ -326,7 +334,18 @@ class _SignupPageState extends State<SignupPage> {
                                   errorBorderColor: Colors.red,
                                   borderRadius: 16,
                                   prefixIcon: InkWell(
-                                    onTap: (){},
+                                    onTap: (){
+                                      showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1800),
+                                        lastDate: DateTime(2040),
+                                      ).then((value){
+                                        authProvider.setDate(value);
+                                        authProvider.setDatetime(formattedDate);
+                                        print(formattedDate);
+                                      });
+                                    },
                                     child: Icon(
                                       Icons.calendar_month,
                                       color: Colors.grey.shade600,
