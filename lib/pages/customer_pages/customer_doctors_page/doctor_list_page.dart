@@ -92,6 +92,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                      String id = doctor['_id'] ?? '';
                      String name = doctor['name'] ?? 'No name';
                      String description = doctor['description'] ?? 'No description';
+                     String category_id = doctor['category_id'][0]['name'] ?? 'No description';
 
                      // Initialize with default values
                      String startTime = 'N/A';
@@ -118,7 +119,8 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                          InkWell(
                            onTap: (){
                              print(id);
-
+                             print(category_id);
+                             customerHospitalDetailProvider.setDoctorDetails(name, category_id, description, startTime, endTime);
                              Navigator.of(context).pushNamed(UserConstants.userDoctorDescriptionPage);
                            },
                            child: CustomContainer(
