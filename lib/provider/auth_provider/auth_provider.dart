@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 class AuthenticationProvider extends ChangeNotifier {
   bool _obscure = true;
   bool _obscureForPwd = true;
+  bool _rememberMe = false;
   String _userName = '';
   List<String> _gender = ["Male", "Female", "Others"];
   String _selectedGender = '';
@@ -50,6 +51,7 @@ class AuthenticationProvider extends ChangeNotifier {
 
   bool get obscure => _obscure;
   bool get obscureForPwd => _obscureForPwd;
+  bool get rememberMe => _rememberMe;
 
   String get userName => _userName;
 
@@ -70,6 +72,11 @@ class AuthenticationProvider extends ChangeNotifier {
   }
   void setName(name){
     _userName = name;
+    notifyListeners();
+  }
+
+  void toggleRememberMe(bool value) {
+    _rememberMe = value;
     notifyListeners();
   }
 
