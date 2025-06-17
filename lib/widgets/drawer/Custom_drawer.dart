@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../classes/secure_storage.dart';
 import '../../routes/route_generator_constants.dart';
 import '../buttons/custom_elevatedbutton.dart';
 import '../colors/custom_colors.dart';
@@ -136,6 +137,7 @@ void openAlertDialog(context) {
                 }, widget:  CustomText(text:'Cancel'),backgroundColor:CustomColors.lightRed,),
                 CustomElevatedButton(
                   onPressed: (){
+                    SessionController.instance.clearSession();
                     Navigator.of(context).pushNamed(UserConstants.logInPage);
                 },
                   widget: CustomText(text: 'Yes'),backgroundColor: CustomColors.lightBlue,)

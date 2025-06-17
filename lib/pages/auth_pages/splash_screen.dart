@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import '../../classes/secure_storage.dart';
 import '../../routes/route_generator_constants.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';
 import '../../widgets/colors/custom_colors.dart';
 import '../../widgets/text/custom_text.dart';
+import '../customer_pages/customer_dashboard/customer_dashboard.dart';
+import 'login_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -12,6 +17,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkSessionAndNavigate();
+  }
+
+  Future<void> checkSessionAndNavigate() async {
+    await SessionController.instance.loadSession();
+
+    final hasToken = SessionController.instance.token != null;
+
+    await SessionController.instance.loadSession();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return; // Prevent errors if widget is disposed
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => hasToken
+              ? const CustomerDashboard()
+              : const LoginPage(),
+        ),
+      );
+    });
+
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   if (hasToken) {
+    //     Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (context) => const CustomerDashboard()),
+    //     );
+    //   } else {
+    //     Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (context) => const LoginPage()),
+    //     );
+    //   }
+    // });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
