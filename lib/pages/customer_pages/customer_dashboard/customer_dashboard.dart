@@ -10,6 +10,7 @@ import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 import 'package:semester_project/widgets/glass_box/custom_glassbox.dart';
 import '../../../const.dart';
 import '../../../provider/auth_provider/auth_provider.dart';
+import '../../../provider/customer_provider/customer_profile_provider.dart';
 import '../../../provider/customer_provider/customer_provider.dart' show CustomerProvider;
 import '../../../routes/route_generator_constants.dart';
 import '../../../widgets/bottom_navbar/custom_bottom_navbar.dart';
@@ -26,13 +27,24 @@ class CustomerDashboard extends StatefulWidget {
 }
 
 class _CustomerDashboardState extends State<CustomerDashboard> {
-  String
-  userName = '';
+  String userName = '';
 
   @override
   void initState() {
     super.initState();
     _loadUserName();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadImage();
+    });
+  }
+
+  Future<void>_loadImage()async{
+    final customerProfileProvider = Provider.of<CustomerProfileProvider>(context, listen: false);
+    final secureStorage = FlutterSecureStorage();
+    final imageUrl = await secureStorage.read(key: 'profile_image_url');
+    if(imageUrl != null){
+      customerProfileProvider.setImageUrl(imageUrl);
+    }
   }
 
   Future<void> _loadUserName() async {
@@ -42,6 +54,8 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
       userName = name ?? 'Guest'; // Fallback if null
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +70,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
   Widget _body(context){
     return Consumer<CustomerProvider>(
         builder: (context,customerProvider,_) {
+          CustomerProfileProvider customerProfileProvider = Provider.of<CustomerProfileProvider>(context,listen: false);
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(
@@ -75,7 +90,12 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                             child: CircleAvatar(
                               backgroundColor: CustomColors.lightBlue,
                               radius: 32,
-                              child: Icon(Icons.person,color: Colors.white,size: 40,),
+                              backgroundImage: customerProfileProvider.imageUrl != null
+                                  ? NetworkImage(customerProfileProvider.imageUrl!)
+                                  : null,
+                               child: customerProfileProvider.imageUrl == null
+                                  ? Icon(Icons.person, color: Colors.white)
+                                  : null,
                             ),
                           ),
                           SizedBox(width: 16,),

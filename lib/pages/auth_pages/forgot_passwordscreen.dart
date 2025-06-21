@@ -128,7 +128,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         CustomElevatedButton(
                           borderRadius: 32,
                           width: MediaQuery.of(context).size.width * 0.80,
-                          onPressed: () {
+                          onPressed: () async{
                             if(_formState.currentState!.validate()){
                               setState(() {
                                 email = authProvider.emailRecoveryTextEditingController.value.text;

@@ -12,7 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.borderRadius,
   });
 
-  final Function() onPressed;
+  final Future<void> Function()? onPressed;
   final Widget widget;
   final Color? backgroundColor;
   final Color? borderColor;

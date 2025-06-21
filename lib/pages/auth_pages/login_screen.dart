@@ -235,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                         CustomElevatedButton(
                           borderRadius: 32,
                           width: MediaQuery.of(context).size.width * 0.80,
-                          onPressed: () {
+                          onPressed: () async{
                             authProvider.setName(userName);
                             // Navigator.of(context).pushNamed(UserConstants.userDashboard);
                             login();

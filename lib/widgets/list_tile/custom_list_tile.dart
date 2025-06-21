@@ -17,10 +17,13 @@ class CustomListTile extends StatelessWidget {
     this.textFontWeight,
     this.isIcon = true,
     this.imgName,
+    this.networkImageUrl,
     this.imgWidth,
     this.imgHeigt,
     this.imgBoxFit,
     this.imgColor,
+    this.tileHeight, // New parameter for tile height
+    this.tileWidth,
     super.key,
   });
 
@@ -36,10 +39,13 @@ class CustomListTile extends StatelessWidget {
   final FontWeight? textFontWeight;
   final bool isIcon;
   final String? imgName;
+  final String? networkImageUrl;
   final double? imgWidth;
   final double? imgHeigt;
   final BoxFit? imgBoxFit;
   final Color? imgColor;
+  final double? tileHeight;
+  final double? tileWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +77,69 @@ class CustomListTile extends StatelessWidget {
         ),
         onTap: onTap,
       ),
+    );
+  }
+
+  Widget _buildLeadingWidget() {
+    if (!isIcon) {
+      if (networkImageUrl != null) {
+        // Network image case
+        return _buildNetworkImage();
+      } else if (imgName != null) {
+        // Asset image case
+        return _buildAssetImage();
+      }
+    }
+    // Default icon case
+    return _buildIcon();
+  }
+
+  Widget _buildNetworkImage() {
+    return Image.network(
+      networkImageUrl!,
+      width: imgWidth ?? 40,
+      height: imgHeigt ?? 40,
+      fit: imgBoxFit ?? BoxFit.cover,
+      color: imgColor,
+      errorBuilder: (context, error, stackTrace) => _buildErrorWidget(),
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return _buildLoadingWidget();
+      },
+    );
+  }
+
+  Widget _buildAssetImage() {
+    return Image.asset(
+      imgName!,
+      width: imgWidth ?? 40,
+      height: imgHeigt ?? 40,
+      fit: imgBoxFit ?? BoxFit.none,
+      color: imgColor,
+    );
+  }
+
+  Widget _buildIcon() {
+    return FaIcon(
+      icon,
+      size: iconSize ?? 18,
+      color: iconColor ?? Colors.black,
+    );
+  }
+
+  Widget _buildErrorWidget() {
+    return Icon(
+      Icons.error_outline,
+      size: iconSize ?? 18,
+      color: Colors.red,
+    );
+  }
+
+  Widget _buildLoadingWidget() {
+    return SizedBox(
+      width: imgWidth ?? 40,
+      height: imgHeigt ?? 40,
+      child: CircularProgressIndicator(),
     );
   }
 }
