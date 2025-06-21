@@ -141,7 +141,7 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                   CustomElevatedButton(
                     width: 0.8,
                     backgroundColor: CustomColors.lightBlue,
-                      onPressed: (){
+                      onPressed: ()async{
                       openAlertDialog(context);
                       },
                       widget: CustomText(
@@ -283,14 +283,14 @@ class _CustomersDoctorDescriptionPageState extends State<CustomersDoctorDescript
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomElevatedButton(
-                                onPressed: (){
+                                onPressed: ()async{
 
                                 },
                                 backgroundColor: CustomColors.lightRed,
                                 widget: CustomText(text: 'Back',isContent: true,),
                             ),
                             CustomElevatedButton(
-                                onPressed: (){
+                                onPressed: ()async{
                                   Navigator.pop(context);
                                 },
                                 backgroundColor: CustomColors.lightBlue,

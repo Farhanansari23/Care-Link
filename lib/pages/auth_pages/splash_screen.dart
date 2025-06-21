@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: 32,
                 width: 0.80,
                 height: MediaQuery.of(context).size.height * 0.056,
-                onPressed: () {
+                onPressed: () async{
                   Navigator.of(context).pushNamed(UserConstants.logInPage);
                 },
                 widget: CustomText(
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: 32,
                 width: 0.80,
                 height: MediaQuery.of(context).size.height * 0.056,
-                onPressed: () {
+                onPressed: () async{
                   Navigator.of(context).pushNamed(UserConstants.signUpPage);
                 },
                 widget: CustomText(

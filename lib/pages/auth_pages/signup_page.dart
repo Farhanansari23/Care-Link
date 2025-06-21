@@ -407,7 +407,7 @@ class _SignupPageState extends State<SignupPage> {
                                 CustomElevatedButton(
                                   borderRadius: 32,
                                   width: MediaQuery.of(context).size.width * 0.80,
-                                  onPressed: () {
+                                  onPressed: () async{
                                     Navigator.of(context).pushNamed(UserConstants.userDashboard);
                                     // if(_formState.currentState!.validate()){
                                     //   setState(() {

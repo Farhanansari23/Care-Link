@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../../classes/secure_storage.dart';
+import '../../provider/customer_provider/customer_profile_provider.dart';
 import '../../routes/route_generator_constants.dart';
 import '../buttons/custom_elevatedbutton.dart';
 import '../colors/custom_colors.dart';
@@ -25,6 +27,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CustomerProfileProvider customerProfileProvider = Provider.of<CustomerProfileProvider>(context,listen: false);
     return Drawer(
       width: MediaQuery.of(context).size.width * 0.7,
       child: Container(
@@ -82,14 +85,38 @@ class CustomDrawer extends StatelessWidget {
               iconSize: 20,
               text: 'Hospital',textColor: Colors.black,
             ),
-            CustomListTile(
+            InkWell(
               onTap: (){
                 Navigator.of(context).pushNamed(UserConstants.userProfilePage);
               },
-              isTabActive: isProfileActive,
-              icon: Icons.person,
-              iconSize:24,
-              text: 'Profile',textColor: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 0.0,
+                  left: 10.0,
+                  bottom: 8.0,
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                      backgroundImage: customerProfileProvider.imageUrl != null
+                          ? NetworkImage(customerProfileProvider.imageUrl!)
+                          : null,
+                      child: customerProfileProvider.imageUrl == null
+                          ? Icon(FontAwesomeIcons.user, size: 20)
+                          : null,
+                    ),
+                    SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(text: 'Profile',isContent: true,),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
             CustomListTile(
               onTap: (){
@@ -132,11 +159,11 @@ void openAlertDialog(context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomElevatedButton(onPressed: (){
+                CustomElevatedButton(onPressed: ()async{
                   Navigator.pop(context);
                 }, widget:  CustomText(text:'Cancel'),backgroundColor:CustomColors.lightRed,),
                 CustomElevatedButton(
-                  onPressed: (){
+                  onPressed: ()async{
                     SessionController.instance.clearSession();
                     Navigator.of(context).pushNamed(UserConstants.logInPage);
                 },
