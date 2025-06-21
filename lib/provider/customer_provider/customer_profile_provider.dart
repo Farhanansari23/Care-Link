@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CustomerProfileProvider extends ChangeNotifier {
 
   String? _imageUrl;
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   final _nameTextController = TextEditingController();
   final _ageTextController = TextEditingController();
@@ -21,13 +23,24 @@ class CustomerProfileProvider extends ChangeNotifier {
   TextEditingController get weightTextController => _weightTextController;
   TextEditingController get emailTextController => _emailTextController;
 
-  void setImageUrl(String url) {
+  Future<void> loadImage() async {
+    final url = await _storage.read(key: 'profile_image_url');
+    if (url != null) {
+      _imageUrl = url;
+      notifyListeners();
+    }
+  }
+
+  Future<void> setImageUrl(String url) async {
     _imageUrl = url;
+    await _storage.write(key: 'profile_image_url', value: url);
     notifyListeners();
   }
 
-  void clearImage() {
+
+  Future<void> clearImage() async {
     _imageUrl = null;
+    await _storage.delete(key: 'profile_image_url');
     notifyListeners();
   }
 }

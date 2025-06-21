@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../classes/secure_storage.dart';
+import '../../const.dart';
 import '../../provider/customer_provider/customer_profile_provider.dart';
 import '../../routes/route_generator_constants.dart';
 import '../buttons/custom_elevatedbutton.dart';
@@ -9,7 +11,7 @@ import '../colors/custom_colors.dart';
 import '../list_tile/custom_list_tile.dart';
 import '../text/custom_text.dart'; // Ensure this import is correct
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   CustomDrawer({
     super.key,
     this.isLogoutActive = false,
@@ -24,6 +26,29 @@ class CustomDrawer extends StatelessWidget {
   final bool isTreatmentActive;
   final bool isHospitalActive;
   final bool isProfileActive;
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+
+  String userName = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+    String? name = await secureStorage.read(key: 'user_name');
+    setState(() {
+      userName = name ?? 'Guest'; // Fallback if null
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +69,18 @@ class CustomDrawer extends StatelessWidget {
               child: Container(
                 child: Row(
                   children: [
-                    const Icon(FontAwesomeIcons.user, size: 24,color: Colors.black,),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                      backgroundImage: customerProfileProvider.imageUrl != null
+                          ? NetworkImage(customerProfileProvider.imageUrl!)
+                          : null,
+                      child: customerProfileProvider.imageUrl == null
+                          ? Icon(FontAwesomeIcons.user, size: 20)
+                          : null,
+                    ),
+                    SizedBox(width: 16,),
+                    CustomText(text:userName,isContent: true,)
                   ],
                 ),
               ),
@@ -57,7 +93,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: (){
                 Navigator.of(context).pushNamed(UserConstants.userDashboard);
               },
-              isTabActive: isHomeActive,
+              isTabActive: widget.isHomeActive,
              icon: FontAwesomeIcons.home,
               iconSize: 18,
               text: 'Home',
@@ -68,7 +104,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: (){
                 Navigator.of(context).pushNamed(UserConstants.userTreatmentPage);
               },
-              isTabActive: isTreatmentActive,
+              isTabActive: widget.isTreatmentActive,
               icon: FontAwesomeIcons.stethoscope,
               tabColor: CustomColors.lightBlue,
               iconSize: 20,
@@ -80,7 +116,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: (){
                 Navigator.of(context).pushNamed(UserConstants.userHospitalListPage);
               },
-              isTabActive: isHospitalActive,
+              isTabActive: widget.isHospitalActive,
               icon: FontAwesomeIcons.hospital,
               iconSize: 20,
               text: 'Hospital',textColor: Colors.black,
@@ -122,7 +158,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: (){
                 openAlertDialog(context);
               },
-              isTabActive: isLogoutActive,
+              isTabActive: widget.isLogoutActive,
               icon: FontAwesomeIcons.arrowRightFromBracket,
               iconSize: 20,
               text: 'Log Out',textColor: Colors.black,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloudinary_url_gen/transformation/region.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                               backgroundImage: customerProfileProvider.imageUrl != null
                                   ? NetworkImage(customerProfileProvider.imageUrl!)
                                   : null,
-                               child: customerProfileProvider.imageUrl == null
+                              child: customerProfileProvider.imageUrl == null
                                   ? Icon(Icons.person, color: Colors.white)
                                   : null,
                             ),
