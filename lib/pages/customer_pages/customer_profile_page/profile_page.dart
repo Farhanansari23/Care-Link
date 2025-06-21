@@ -30,6 +30,14 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     // TODO: implement initState
     CustomerProfileProvider customerProfileProvider = Provider.of<CustomerProfileProvider>(context,listen: false);
     super.initState();
+    _loadInitialImage();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Listen to provider changes
+    Provider.of<CustomerProfileProvider>(context, listen: true);
   }
 
   Future<void> pickImage(ImageSource source) async{
@@ -64,7 +72,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
           _isUploading = false;
         });
 
-        customerProfileProvider.setImageUrl(_imageUrl!);
+        await customerProfileProvider.setImageUrl(_imageUrl!);
         // Optionally save to secure storage
         final secureStorage = FlutterSecureStorage();
         await secureStorage.write(key: 'profile_image_url', value: _imageUrl);
@@ -83,6 +91,16 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
+    }
+  }
+
+  Future<void> _loadInitialImage() async {
+    final customerProfileProvider = Provider.of<CustomerProfileProvider>(context, listen: false);
+    // Sync with provider's image URL
+    if (customerProfileProvider.imageUrl != null) {
+      setState(() {
+        _imageUrl = customerProfileProvider.imageUrl;
+      });
     }
   }
 
@@ -136,8 +154,10 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                   backgroundColor: Colors.white,
                   backgroundImage: _imageUrl != null
                       ? NetworkImage(_imageUrl!)
+                      : Provider.of<CustomerProfileProvider>(context).imageUrl != null
+                      ? NetworkImage(Provider.of<CustomerProfileProvider>(context).imageUrl!)
                       : null,
-                  child: _imageUrl == null
+                  child: _imageUrl == null && Provider.of<CustomerProfileProvider>(context).imageUrl == null
                       ? Icon(Icons.person, size: 64)
                       : null,
                 ),
