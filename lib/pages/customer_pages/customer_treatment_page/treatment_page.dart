@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:semester_project/const.dart';
 import 'package:semester_project/widgets/drawer/Custom_drawer.dart';
 
+import '../../../provider/customer_provider/customer_profile_provider.dart';
 import '../../../routes/route_generator_constants.dart';
 import '../../../widgets/bottom_navbar/custom_bottom_navbar.dart';
 import '../../../widgets/colors/custom_colors.dart';
@@ -17,6 +20,32 @@ class CustomerTreatmentPage extends StatefulWidget {
 }
 
 class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
+
+  String userName = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadUserName();
+    _loadImage();
+  }
+  Future<void> _loadUserName() async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+    String? name = await secureStorage.read(key: 'user_name');
+    setState(() {
+      userName = name ?? 'Guest'; // Fallback if null
+    });
+  }
+
+  Future<void>_loadImage()async{
+    final customerProfileProvider = Provider.of<CustomerProfileProvider>(context, listen: false);
+    final secureStorage = FlutterSecureStorage();
+    final imageUrl = await secureStorage.read(key: 'profile_image_url');
+    if(imageUrl != null){
+      customerProfileProvider.setImageUrl(imageUrl);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +58,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
   }
 
   Widget body(context) {
+    final customerProfileProvider = Provider.of<CustomerProfileProvider>(context, listen: false);
     return SafeArea(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -65,22 +95,45 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
             CustomContainer(
               horizontalMargin: 24,
               width: 0.9,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  CustomText(text: userName, isHeading: true),
-                  CustomText(text: 'Male, 23 y.o', isSubHeading: true),
-                  CustomText(text: 'Height: 5\'7', isContent: true),
-                  SizedBox(height: 16),
-                  CustomContainer(
-                    verticalPad: 8,
-                    borderRadius: 32,
-                    color: CustomColors.lightBlue,
-                    child: CustomText(
-                      text: '3 Treatment Plan\'s',
-                      color: Colors.white,
-                      isContent: true,
-                    ),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(text: userName, isHeading: true),
+                          CustomText(text: 'Male, 23 y.o', isSubHeading: true),
+                          CustomText(text: 'Height: 5\'7', isContent: true),
+                          SizedBox(height: 16),
+                          CustomContainer(
+                            verticalPad: 8,
+                            borderRadius: 32,
+                            color: CustomColors.lightBlue,
+                            child: CustomText(
+                              text: '3 Treatment Plan\'s',
+                              color: Colors.white,
+                              isContent: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 24,),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: CustomColors.lightBlue,
+                        radius: 64,
+                        backgroundImage: customerProfileProvider.imageUrl != null
+                            ? NetworkImage(customerProfileProvider.imageUrl!)
+                            : null,
+                        child: customerProfileProvider.imageUrl == null
+                            ? Icon(Icons.person, color: Colors.white)
+                            : null,
+                      ),
+                    ],
                   ),
                 ],
               ),
