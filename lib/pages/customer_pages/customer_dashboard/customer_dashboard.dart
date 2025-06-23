@@ -32,11 +32,12 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
 
   @override
   void initState() {
-    super.initState();
+    final customerProfileProvider = Provider.of<CustomerProfileProvider>(context, listen: false);
     _loadUserName();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadImage();
     });
+    super.initState();
   }
 
   Future<void>_loadImage()async{

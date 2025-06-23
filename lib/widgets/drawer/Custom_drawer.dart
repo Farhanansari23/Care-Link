@@ -10,6 +10,7 @@ import '../buttons/custom_elevatedbutton.dart';
 import '../colors/custom_colors.dart';
 import '../list_tile/custom_list_tile.dart';
 import '../text/custom_text.dart'; // Ensure this import is correct
+import 'package:semester_project/classes/secure_storage.dart';
 
 class CustomDrawer extends StatefulWidget {
   CustomDrawer({
@@ -156,6 +157,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             CustomListTile(
               onTap: (){
+
                 openAlertDialog(context);
               },
               isTabActive: widget.isLogoutActive,
@@ -172,6 +174,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
 //-------------------------------------------------------------Alert Dialog---------------------------------------------------------------------------------------------------------------------------//
 void openAlertDialog(context) {
+  CustomerProfileProvider customerProfileProvider = Provider.of<CustomerProfileProvider>(context,listen: false);
   showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -201,6 +204,7 @@ void openAlertDialog(context) {
                 CustomElevatedButton(
                   onPressed: ()async{
                     SessionController.instance.clearSession();
+                    customerProfileProvider.clearImage();
                     Navigator.of(context).pushNamed(UserConstants.logInPage);
                 },
                   widget: CustomText(text: 'Yes'),backgroundColor: CustomColors.lightBlue,)

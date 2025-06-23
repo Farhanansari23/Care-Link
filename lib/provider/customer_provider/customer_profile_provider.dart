@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CustomerProfileProvider extends ChangeNotifier {
-
+  String? _userName = '';
   String? _imageUrl;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
@@ -15,6 +15,7 @@ class CustomerProfileProvider extends ChangeNotifier {
   final _emailTextController = TextEditingController();
 
   String? get imageUrl => _imageUrl;
+  String? get userName => _userName;
 
   TextEditingController get nameTextController => _nameTextController;
   TextEditingController get ageTextController => _ageTextController;
@@ -29,6 +30,13 @@ class CustomerProfileProvider extends ChangeNotifier {
       _imageUrl = url;
       notifyListeners();
     }
+  }
+
+  Future<void> loadUserName() async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+    String? name = await secureStorage.read(key: 'user_name');
+      _userName = name ?? 'Guest'; // Fallback if null
+    notifyListeners();
   }
 
   Future<void> setImageUrl(String url) async {
