@@ -266,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                     InkWell(
                       onTap: () {
                         // login();
-                        print('not working');
+                        // print('not working');
                         Navigator.of(context).pushNamed(UserConstants.signUpPage);
                       },
                       child: CustomText(

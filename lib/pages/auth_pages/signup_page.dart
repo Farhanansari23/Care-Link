@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../../const.dart';
 import '../../provider/auth_provider/auth_provider.dart';
 import '../../routes/route_generator_constants.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';
@@ -12,6 +15,7 @@ import '../../widgets/text/custom_text.dart';
 import '../../widgets/textfield/custom_textfield.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
+import 'package:http/http.dart' as http;
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -30,49 +34,81 @@ class _SignupPageState extends State<SignupPage> {
   AuthenticationProvider? authProvider;
   final _formState = GlobalKey<FormState>();
 
-  registration() async {
-    authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
-    if (password != null && authProvider?.signUpNameTextEditingController.text !="" &&authProvider?.signUpEmailTextEditingController.text != "") {
-      try {
-        UserCredential userCredential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: authProvider!.signUpEmailTextEditingController.value.text,
-          password:
-          authProvider!.signUpPasswordTextEditingController.value.text,
-        );
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: CustomColors.primaryColor,
-            content: CustomText(
-              text: 'Registered Successfully',
-              color: Colors.white,
-            ),
-          ),
-        );
-        Navigator.of(context).pushNamed(UserConstants.userDashboard);
-      } on FirebaseAuthException catch (err) {
-        if (err.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: CustomColors.primaryColor,
-              content: CustomText(
-                text: 'Password is too weak',
-                color: Colors.white,
-              ),
-            ),
-          );
-        }else if(err.code == 'Email-already in use'){
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: CustomColors.primaryColor,
-              content: CustomText(
-                text: 'Account already exist',
-                color: Colors.white,
-              ),
-            ),
-          );
-        }
-      }
+  // registration() async {
+  //   authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
+  //   if (password != null && authProvider?.signUpNameTextEditingController.text !="" &&authProvider?.signUpEmailTextEditingController.text != "") {
+  //     try {
+  //       UserCredential userCredential =
+  //       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: authProvider!.signUpEmailTextEditingController.value.text,
+  //         password:
+  //         authProvider!.signUpPasswordTextEditingController.value.text,
+  //       );
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           backgroundColor: CustomColors.primaryColor,
+  //           content: CustomText(
+  //             text: 'Registered Successfully',
+  //             color: Colors.white,
+  //           ),
+  //         ),
+  //       );
+  //       Navigator.of(context).pushNamed(UserConstants.userDashboard);
+  //     } on FirebaseAuthException catch (err) {
+  //       if (err.code == 'weak-password') {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             backgroundColor: CustomColors.primaryColor,
+  //             content: CustomText(
+  //               text: 'Password is too weak',
+  //               color: Colors.white,
+  //             ),
+  //           ),
+  //         );
+  //       }else if(err.code == 'Email-already in use'){
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             backgroundColor: CustomColors.primaryColor,
+  //             content: CustomText(
+  //               text: 'Account already exist',
+  //               color: Colors.white,
+  //             ),
+  //           ),
+  //         );
+  //       }
+  //     }
+  //   }
+  // }
+
+  void signUp() async{
+    AuthenticationProvider authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
+    final Url = 'http://localhost:3000/api/auth/register';
+    Map<String,dynamic> body = {
+      "name": authProvider.signUpNameTextEditingController.text.trim(),
+      "email":authProvider.signUpEmailTextEditingController.value.text,
+      "pwd": authProvider.signUpPasswordTextEditingController.value.text,
+      "phone_no": authProvider.signUpUserPhoneTextEditingController.value.text,
+      "address": authProvider.signUpUserAddressTextEditingController.value.text,
+      "user_type": authProvider.signUpUserTypeTextEditingController.value.text,
+      "gender": authProvider.signUpUserGenderTextEditingController.value.text,
+      "height": authProvider.signUpUserHeightTextEditingController.value.text,
+      "weight": authProvider.signUpUserWeightTextEditingController.value.text,
+      "dob": authProvider.signUpUserDobTextEditingController.value.text
+    };
+    //drscorpion4@gmail.com
+    //zinzo123
+
+    var response = await http.post(Uri.parse(Url),
+
+      headers: {
+        'Content-Type': 'Application/json',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: jsonEncode(body));
+    if(response.statusCode == 200){
+      print("signed up sucessfull");
+      print(response.statusCode);
+      Navigator.of(context).pushNamed(UserConstants.userDashboard);
     }
   }
 
@@ -86,9 +122,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget _body(context) {
     return Consumer<AuthenticationProvider>(
         builder: (context, authProvider, _) {
-          dateString = authProvider.selectedDate.toString().split(" ")[0];
-          DateTime dateTime = DateTime.parse(dateString);
-          formattedDate = DateFormat('EEEE d MMMM').format(dateTime);
+
           return Form(
             key: _formState,
             child: Container(
@@ -235,6 +269,52 @@ class _SignupPageState extends State<SignupPage> {
                                   height: 16,
                                 ),
                                 TextFromFieldWithPrefixSuffix(
+                                  controller: authProvider.signUpUserPhoneTextEditingController,
+                                  glassEffect: true,
+                                  hintText: 'Enter your Phone Number',
+                                  blurAmount: 5.0,
+                                  glassOpacity: 0.4,
+                                  keyboardType: TextInputType.number,
+                                  borderColor: Colors.white, // Default border color
+                                  focusedBorderColor: Colors.blue, // Color when focused
+                                  enabledBorderColor: Colors.grey, // Color when enabled
+                                  errorBorderColor: Colors.red,
+                                  borderRadius: 16,
+                                  prefixIcon: Icon(
+                                    Icons.phone,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                TextFromFieldWithPrefixSuffix(
+                                  controller: authProvider.signUpUserAddressTextEditingController,
+                                  glassEffect: true,
+                                  hintText: 'Enter your Address',
+                                  blurAmount: 5.0,
+                                  glassOpacity: 0.4,
+                                  keyboardType: TextInputType.text,
+                                  borderColor: Colors.white, // Default border color
+                                  focusedBorderColor: Colors.blue, // Color when focused
+                                  enabledBorderColor: Colors.grey, // Color when enabled
+                                  errorBorderColor: Colors.red,
+                                  borderRadius: 16,
+                                  prefixIcon: Icon(
+                                    Icons.location_city,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                TextFromFieldWithPrefixSuffix(
                                   controller:
                                   authProvider.signUpUserTypeTextEditingController,
                                   glassEffect: true,
@@ -255,7 +335,7 @@ class _SignupPageState extends State<SignupPage> {
                                     return null;
                                   },
                                 ),
-                                SizedBox(
+                               SizedBox(
                                   height: 16,
                                 ),
                                 CustomDropdown(
@@ -341,9 +421,17 @@ class _SignupPageState extends State<SignupPage> {
                                         firstDate: DateTime(1800),
                                         lastDate: DateTime(2040),
                                       ).then((value){
-                                        authProvider.setDate(value);
-                                        authProvider.setDatetime(formattedDate);
-                                        print(formattedDate);
+                                        if(value != null){
+                                          // dateString = authProvider.selectedDate.toString().split(" ")[0];
+                                          // DateTime dateTime = DateTime.parse(dateString);
+                                          // formattedDate = DateFormat('EEEE d MMMM').format(dateTime);
+
+                                          String formattedDate = DateFormat('EEEE d MMMM').format(value);
+                                          authProvider.setDate(value);
+                                          authProvider.setDatetime(formattedDate);
+                                          print(formattedDate);
+                                          print(authProvider.selectedDate.toString().split(" ")[0]);
+                                        }
                                       });
                                     },
                                     child: Icon(
@@ -358,57 +446,13 @@ class _SignupPageState extends State<SignupPage> {
                                 SizedBox(
                                   height: 16,
                                 ),
-                                TextFromFieldWithPrefixSuffix(
-                                  controller: authProvider.signUpUserPhoneTextEditingController,
-                                  glassEffect: true,
-                                  hintText: 'Enter your Phone Number',
-                                  blurAmount: 5.0,
-                                  glassOpacity: 0.4,
-                                  keyboardType: TextInputType.number,
-                                  borderColor: Colors.white, // Default border color
-                                  focusedBorderColor: Colors.blue, // Color when focused
-                                  enabledBorderColor: Colors.grey, // Color when enabled
-                                  errorBorderColor: Colors.red,
-                                  borderRadius: 16,
-                                  prefixIcon: Icon(
-                                    Icons.phone,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                  validator: (value) {
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 16,
-                                ),
-                                TextFromFieldWithPrefixSuffix(
-                                  controller: authProvider.signUpUserAddressTextEditingController,
-                                  glassEffect: true,
-                                  hintText: 'Enter your Address',
-                                  blurAmount: 5.0,
-                                  glassOpacity: 0.4,
-                                  keyboardType: TextInputType.text,
-                                  borderColor: Colors.white, // Default border color
-                                  focusedBorderColor: Colors.blue, // Color when focused
-                                  enabledBorderColor: Colors.grey, // Color when enabled
-                                  errorBorderColor: Colors.red,
-                                  borderRadius: 16,
-                                  prefixIcon: Icon(
-                                    Icons.location_city,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                  validator: (value) {
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 16,
-                                ),
                                 CustomElevatedButton(
                                   borderRadius: 32,
                                   width: MediaQuery.of(context).size.width * 0.80,
                                   onPressed: () async{
-                                    Navigator.of(context).pushNamed(UserConstants.userDashboard);
+                                    signUp();
+                                    print("hello");
+                                    // Navigator.of(context).pushNamed(UserConstants.userDashboard);
                                     // if(_formState.currentState!.validate()){
                                     //   setState(() {
                                     //     name = authProvider.signUpNameTextEditingController.value.text;
