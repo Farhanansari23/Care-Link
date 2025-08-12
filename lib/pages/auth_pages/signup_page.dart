@@ -17,6 +17,8 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:http/http.dart' as http;
 
+import '../../widgets/utils/custom_utils.dart';
+
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
@@ -25,6 +27,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+
   bool isChecked = false;
   String email = '';
   String name = '';
@@ -83,17 +86,30 @@ class _SignupPageState extends State<SignupPage> {
   void signUp() async{
     AuthenticationProvider authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
     final Url = 'http://localhost:3000/api/auth/register';
+
+
     Map<String,dynamic> body = {
+      // "name": authProvider.signUpNameTextEditingController.text.trim(),
+      // "email":authProvider.signUpEmailTextEditingController.value.text,
+      // "pwd": authProvider.signUpPasswordTextEditingController.value.text,
+      // "phone_no": authProvider.signUpUserPhoneTextEditingController.value.text,
+      // "address": authProvider.signUpUserAddressTextEditingController.value.text,
+      // "user_type": authProvider.signUpUserTypeTextEditingController.value.text,
+      // "gender": authProvider.signUpUserGenderTextEditingController.value.text,
+      // "height": authProvider.signUpUserHeightTextEditingController.value.text,
+      // "weight": authProvider.signUpUserWeightTextEditingController.value.text,
+      // "dob": authProvider.signUpUserDobTextEditingController.value.text
+
       "name": authProvider.signUpNameTextEditingController.text.trim(),
-      "email":authProvider.signUpEmailTextEditingController.value.text,
-      "pwd": authProvider.signUpPasswordTextEditingController.value.text,
-      "phone_no": authProvider.signUpUserPhoneTextEditingController.value.text,
-      "address": authProvider.signUpUserAddressTextEditingController.value.text,
-      "user_type": authProvider.signUpUserTypeTextEditingController.value.text,
-      "gender": authProvider.signUpUserGenderTextEditingController.value.text,
-      "height": authProvider.signUpUserHeightTextEditingController.value.text,
-      "weight": authProvider.signUpUserWeightTextEditingController.value.text,
-      "dob": authProvider.signUpUserDobTextEditingController.value.text
+      "email": authProvider.signUpEmailTextEditingController.text.trim(),
+      "pwd": authProvider.signUpPasswordTextEditingController.text.trim(),
+      "phone_no": authProvider.signUpUserPhoneTextEditingController.text.trim(),
+      "address": authProvider.signUpUserAddressTextEditingController.text.trim(),
+      "user_type": authProvider.signUpUserTypeTextEditingController.text.trim(),
+      "gender": authProvider.signUpUserGenderTextEditingController.text.trim(),
+      "height": authProvider.signUpUserHeightTextEditingController.text.trim(),
+      "weight": authProvider.signUpUserWeightTextEditingController.text.trim(),
+      "dob": authProvider.signUpUserDobTextEditingController.text.trim(),
     };
     //drscorpion4@gmail.com
     //zinzo123
@@ -101,14 +117,23 @@ class _SignupPageState extends State<SignupPage> {
     var response = await http.post(Uri.parse(Url),
 
       headers: {
-        'Content-Type': 'Application/json',
-        'Authorization': 'Bearer $accessToken',
-      },
-      body: jsonEncode(body));
+        'Content-Type': 'Application/json',},
+         body: jsonEncode(body),
+      );
+
+     final responseData = jsonDecode(response.body);
+     // print(responseData);
+
     if(response.statusCode == 200){
       print("signed up sucessfull");
+      print("Signup successful");
       print(response.statusCode);
-      Navigator.of(context).pushNamed(UserConstants.userDashboard);
+      if (mounted) { // Check if widget is still in the tree
+        Navigator.of(context).pushReplacementNamed(UserConstants.userDashboard);
+      }
+    }else{
+      print("Signup failed with status: ${response.statusCode}");
+      print("Error message: ${responseData['message'] ?? 'No error message'}");
     }
   }
 
@@ -122,7 +147,6 @@ class _SignupPageState extends State<SignupPage> {
   Widget _body(context) {
     return Consumer<AuthenticationProvider>(
         builder: (context, authProvider, _) {
-
           return Form(
             key: _formState,
             child: Container(
@@ -450,8 +474,16 @@ class _SignupPageState extends State<SignupPage> {
                                   borderRadius: 32,
                                   width: MediaQuery.of(context).size.width * 0.80,
                                   onPressed: () async{
-                                    signUp();
-                                    print("hello");
+                                    if(_formState.currentState!.validate()){
+                                      setState(() {
+                                        signUp();
+                                      });
+                                      // print("hello");
+                                    }else{
+                                      ToastMessageUtils().showToastMessage('Please fill in the required fields');
+                                      print('Form is not valid');
+                                    }
+
                                     // Navigator.of(context).pushNamed(UserConstants.userDashboard);
                                     // if(_formState.currentState!.validate()){
                                     //   setState(() {
