@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import '../../const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -115,26 +115,23 @@ class _SignupPageState extends State<SignupPage> {
     //zinzo123
 
     var response = await http.post(Uri.parse(Url),
-
-      headers: {
-        'Content-Type': 'Application/json',},
+         headers: {
+           'Content-Type': 'Application/json',
+         },
          body: jsonEncode(body),
       );
 
      final responseData = jsonDecode(response.body);
-     // print(responseData);
-
-    if(response.statusCode == 200){
-      print("signed up sucessfull");
-      print("Signup successful");
-      print(response.statusCode);
-      if (mounted) { // Check if widget is still in the tree
-        Navigator.of(context).pushReplacementNamed(UserConstants.userDashboard);
-      }
-    }else{
-      print("Signup failed with status: ${response.statusCode}");
-      print("Error message: ${responseData['message'] ?? 'No error message'}");
-    }
+     if(response.statusCode == 200 || response.statusCode ==201){
+       print(response.statusCode);
+       print(response.body);
+       signedInName = responseData["name"];
+       Navigator.of(context).pushReplacementNamed(UserConstants.userDashboard);
+       print(userName);
+     }else{
+       print("Signup failed with status: ${response.statusCode}");
+         print("Error message: ${responseData['message'] ?? 'No error message'}");
+     }
   }
 
   @override
