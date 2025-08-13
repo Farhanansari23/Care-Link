@@ -125,7 +125,8 @@ class _SignupPageState extends State<SignupPage> {
      if(response.statusCode == 200 || response.statusCode ==201){
        print(response.statusCode);
        print(response.body);
-       signedInName = responseData["name"];
+       signedInName = responseData["user"]["name"];
+       userDob = responseData["user"]["name"];
        Navigator.of(context).pushReplacementNamed(UserConstants.userDashboard);
        print(userName);
      }else{
@@ -340,7 +341,7 @@ class _SignupPageState extends State<SignupPage> {
                                   authProvider.signUpUserTypeTextEditingController,
                                   glassEffect: true,
                                   hintText: 'UserType',
-                                  obscure: authProvider.obscureForPwd,
+                                  // obscure: authProvider.obscureForPwd,
                                   blurAmount: 5.0,
                                   glassOpacity: 0.4,
                                   borderColor: Colors.white, // Default border color

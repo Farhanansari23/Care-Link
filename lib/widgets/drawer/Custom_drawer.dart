@@ -47,7 +47,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
     String? name = await secureStorage.read(key: 'user_name');
     setState(() {
-      userName = name ?? 'Guest'; // Fallback if null
+      userName = name ?? signedInName ; // Fallback if null
     });
   }
 

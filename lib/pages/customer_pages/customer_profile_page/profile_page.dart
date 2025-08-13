@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 
+import '../../../const.dart';
 import '../../../provider/customer_provider/customer_profile_provider.dart';
 import '../../../widgets/buttons/custom_elevatedbutton.dart';
 import '../../../widgets/container/custom_container.dart';
@@ -104,6 +105,15 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     }
   }
 
+  Future<void> _loadUserName() async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+    String? name = await secureStorage.read(key: 'user_name');
+    setState(() {
+      userName = name ?? signedInName ; // Fallback if null
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +193,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     children: [
                       CustomText(text: 'Name:',isContent: true,),
                       SizedBox(width: 8,),
-                      CustomText(text: 'Farhan Ansari',isContent: true,),
+                      CustomText(text: userName,isContent: true,),
                       Spacer(),
                       InkWell(
                         onTap: (){
@@ -198,7 +208,15 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     children: [
                       CustomText(text: 'Age:',isContent: true,),
                       SizedBox(width: 8,),
-                      CustomText(text: '23 years',isContent: true,)
+                      CustomText(text: age,isContent: true,)
+                    ],
+                  ),
+                  SizedBox(height: 8,),
+                  Row(
+                    children: [
+                      CustomText(text: 'Gender:',isContent: true,),
+                      SizedBox(width: 8,),
+                      CustomText(text: gender,isContent: true,)
                     ],
                   ),
                   SizedBox(height: 8,),
