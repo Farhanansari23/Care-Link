@@ -205,7 +205,8 @@ void openAlertDialog(context) {
                   onPressed: ()async{
                     SessionController.instance.clearSession();
                     customerProfileProvider.clearImage();
-                    Navigator.of(context).pushNamed(UserConstants.logInPage);
+                    // Navigator.of(context);
+                    Navigator.of(context).popAndPushNamed(UserConstants.logInPage);
                 },
                   widget: CustomText(text: 'Yes'),backgroundColor: CustomColors.lightBlue,)
               ],

@@ -12,52 +12,9 @@ import 'package:semester_project/routes/route_generator.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
 
 void main()async{
-  // WidgetsFlutterBinding.ensureInitialized(); // Required for async init
-  // await Firebase.initializeApp();// Add this line
+
   runApp(MyApp());
 }
-
-// class AppInitializer extends StatelessWidget {
-//   // Create the initialization Future outside of build
-//   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//       // Initialize FlutterFire:
-//       future: _initialization,
-//       builder: (context, snapshot) {
-//         // Check for errors
-//         if (snapshot.hasError) {
-//           // You can return a more sophisticated error widget here
-//           return MaterialApp(
-//             home: Scaffold(
-//               body: Center(
-//                 child: Text('Error initializing Firebase: ${snapshot.error}'),
-//               ),
-//             ),
-//           );
-//         }
-//
-//         // Once complete, show your application
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           return MyApp(); // Your main application
-//         }
-//
-//         // Otherwise, show something whilst waiting for initialization to complete
-//         // This could be your SplashScreen if it doesn't depend on Firebase,
-//         // or a simple CircularProgressIndicator.
-//         return MaterialApp(
-//           home: Scaffold(
-//             body: Center(
-//               child: CircularProgressIndicator(), // Or your SplashScreen
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

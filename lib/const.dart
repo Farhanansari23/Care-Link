@@ -8,6 +8,7 @@ String height = '';
 String weight = '';
 String age = '';
 String userId = '';
+String userType = '';
 String hospitalsId = '';
 String userDob = '';
 String apiURL = Environment.apiUrl;

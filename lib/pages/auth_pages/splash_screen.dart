@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     await SessionController.instance.loadSession();
 
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 4), () {
       if (!mounted) return; // Prevent errors if widget is disposed
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -42,18 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     });
-
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   if (hasToken) {
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const CustomerDashboard()),
-    //     );
-    //   } else {
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => const LoginPage()),
-    //     );
-    //   }
-    // });
   }
 
 
