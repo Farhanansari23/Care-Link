@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../classes/secure_storage.dart';
 import '../../const.dart';
 import '../../provider/auth_provider/auth_provider.dart';
+import '../../routes/admin_route_generator.dart';
 import '../../routes/route_generator_constants.dart';
 import '../../services/auth.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';
@@ -16,6 +17,7 @@ import '../../widgets/container/custom_container.dart';
 import '../../widgets/text/custom_text.dart';
 import '../../widgets/textfield/custom_textfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../admin_pages/adminDashboard.dart' as adminDashboard;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -60,11 +62,17 @@ class _LoginPageState extends State<LoginPage> {
       accessToken = decodedBody["token"];
       userName = decodedBody["user"]["name"];
       userId = decodedBody["user"]["_id"];
+      userType = decodedBody["user"]["user_type"];
       // print(userName);
-      await SessionController.instance.saveSession(accessToken, userId,userName);
+      await SessionController.instance.saveSession(accessToken, userId,userName,userType);
       authProvider.setName(userName);
       print(authProvider.userName);
-      Navigator.of(context).pushNamed(UserConstants.userDashboard);
+      if(accessToken != null || userType == 'patient'){
+        Navigator.of(context).pushNamed(UserConstants.userDashboard);
+      }else{
+        Navigator.of(context).pushNamed(AdminConstants.adminDashboard);
+      }
+
       // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
       //ansarifarhan2316@gmail.com
       //ansariFarhan
@@ -265,9 +273,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        // login();
-                        // print('not working');
-                        Navigator.of(context).pushNamed(UserConstants.signUpPage);
+                        // Navigator.of(context).pushNamed(UserConstants.signUpPage);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          UserConstants.signUpPage,
+                              (route) => false,
+                        );
                       },
                       child: CustomText(
                         text: 'Sign Up',

@@ -58,21 +58,25 @@ class SessionController{
   String? token;
   String? userId;
   String? usersName;
+  String? userType;
 
-  Future<void> saveSession(String accessToken, String id,String usersName) async {
+  Future<void> saveSession(String accessToken, String id,String usersName,String userType) async {
     token = accessToken;
     userId = id;
     this.usersName = usersName;
+    userType = userType;
 
     await _storage.write(key: 'access_token', value: accessToken);
     await _storage.write(key: 'user_id', value: id);
     await _storage.write(key: 'user_name', value: usersName);
+    await _storage.write(key: 'user_type', value: userType);
   }
 
   Future<void> loadSession() async {
     token = await _storage.read(key: 'access_token');
     userId = await _storage.read(key: 'user_id');
     usersName = await _storage.read(key: 'user_name');
+    usersName = await _storage.read(key: 'user_type');
   }
 
   Future<void> clearSession() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
+import '../pages/admin_pages/adminDashboard.dart';
 import '../pages/auth_pages/forgot_passwordscreen.dart';
 import '../pages/auth_pages/login_screen.dart';
 import '../pages/auth_pages/signup_page.dart';
@@ -11,6 +12,7 @@ import '../pages/customer_pages/customer_profile_page/profile_page.dart';
 import '../pages/customer_pages/hospital_page_list/hospital_list_page.dart';
 import '../pages/customer_pages/customer_treatment_page/treatment_page.dart';
 import '../pages/error_page/error_page.dart';
+import 'admin_route_generator.dart';
 
 class RouteGenerator{
   static Route<dynamic> generateRoutes(RouteSettings setting){
@@ -57,6 +59,10 @@ class RouteGenerator{
           builder: (_) => const CustomersDoctorDescriptionPage(),
         );
 
+      case AdminConstants.adminDashboard :
+        return MaterialPageRoute(
+          builder: (_) => const AdminDashboard(),
+        );
 
       default:
         return MaterialPageRoute(builder: (_) => ErrorPage());
