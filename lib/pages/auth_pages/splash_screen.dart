@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../../classes/secure_storage.dart';
+import '../../const.dart';
 import '../../routes/route_generator_constants.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';
 import '../../widgets/colors/custom_colors.dart';
 import '../../widgets/text/custom_text.dart';
+import '../admin_pages/adminDashboard.dart';
 import '../customer_pages/customer_dashboard/customer_dashboard.dart';
 import 'login_screen.dart';
 
@@ -17,7 +19,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -32,18 +33,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     await SessionController.instance.loadSession();
 
-    Future.delayed(const Duration(seconds: 4), () {
-      if (!mounted) return; // Prevent errors if widget is disposed
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      // Prevent errors if widget is disposed
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => hasToken
-              ? const CustomerDashboard()
-              : const LoginPage(),
+          builder:
+              (context) =>
+                  hasToken || userType == 'patient'
+                      ? const CustomerDashboard()
+                      : userType == 'admin'
+                      ? AdminDashboard()
+                      : const LoginPage(),
         ),
       );
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: _body(context),
     );
   }
-
 
   Widget _body(context) {
     return Container(
@@ -73,12 +77,15 @@ class _MyHomePageState extends State<MyHomePage> {
           Column(
             children: [
               CustomText(
-                text: 'Welcome To Care Link',color: Colors.white,size: 32,fontWeight: FontWeight.w600,
+                text: 'Welcome To Care Link',
+                color: Colors.white,
+                size: 32,
+                fontWeight: FontWeight.w600,
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 8),
               CustomText(
                 text:
-                'Create you account to get started on your health and happiness journey.',
+                    'Create you account to get started on your health and happiness journey.',
                 color: Colors.white,
               ),
             ],
@@ -96,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: 32,
                 width: 0.80,
                 height: MediaQuery.of(context).size.height * 0.056,
-                onPressed: () async{
+                onPressed: () async {
                   Navigator.of(context).pushNamed(UserConstants.logInPage);
                 },
                 widget: CustomText(
@@ -106,12 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 borderColor: Colors.white,
               ),
-              SizedBox(height: 24,),
+              SizedBox(height: 24),
               CustomElevatedButton(
                 borderRadius: 32,
                 width: 0.80,
                 height: MediaQuery.of(context).size.height * 0.056,
-                onPressed: () async{
+                onPressed: () async {
                   Navigator.of(context).pushNamed(UserConstants.signUpPage);
                 },
                 widget: CustomText(

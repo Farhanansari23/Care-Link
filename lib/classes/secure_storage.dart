@@ -59,17 +59,32 @@ class SessionController{
   String? userId;
   String? usersName;
   String? userType;
+  String? gender;
+  String? userDob;
+  String? height;
+  String? weight;
+  String? userEmail;
 
-  Future<void> saveSession(String accessToken, String id,String usersName,String userType) async {
+  Future<void> saveSession(String accessToken, String id,String usersName,String userType,String gender,String userDob,String height,String weight,String userEmail) async {
     token = accessToken;
     userId = id;
     this.usersName = usersName;
     userType = userType;
+    gender = gender;
+    userDob = userDob;
+    height =height;
+    weight = weight;
+    userEmail = userEmail;
 
     await _storage.write(key: 'access_token', value: accessToken);
     await _storage.write(key: 'user_id', value: id);
     await _storage.write(key: 'user_name', value: usersName);
     await _storage.write(key: 'user_type', value: userType);
+    await _storage.write(key: 'gender', value: gender);
+    await _storage.write(key: 'user_dob', value: userDob);
+    await _storage.write(key: 'height', value: height);
+    await _storage.write(key: 'weight', value: weight);
+    await _storage.write(key: 'user_email', value: userEmail);
   }
 
   Future<void> loadSession() async {
@@ -77,6 +92,11 @@ class SessionController{
     userId = await _storage.read(key: 'user_id');
     usersName = await _storage.read(key: 'user_name');
     usersName = await _storage.read(key: 'user_type');
+    usersName = await _storage.read(key: 'gender');
+    usersName = await _storage.read(key: 'user_dob');
+    usersName = await _storage.read(key: 'height');
+    usersName = await _storage.read(key: 'weight');
+    usersName = await _storage.read(key: 'user_email');
   }
 
   Future<void> clearSession() async {
