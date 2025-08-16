@@ -63,8 +63,17 @@ class _LoginPageState extends State<LoginPage> {
       userName = decodedBody["user"]["name"];
       userId = decodedBody["user"]["_id"];
       userType = decodedBody["user"]["user_type"];
-      // print(userName);
-      await SessionController.instance.saveSession(accessToken, userId,userName,userType);
+      gender = decodedBody["user"]["gender"];
+      userDob = decodedBody["user"]["dob"];
+      height = decodedBody["user"]["height"];
+      weight = decodedBody["user"]["weight"];
+      userEmail = decodedBody["user"]["email"];
+      print(gender);
+      print(userDob);
+      print(height);
+      print(weight);
+      print(userEmail);
+      await SessionController.instance.saveSession(accessToken, userId,userName,userType,gender,userDob,height,weight,userEmail);
       authProvider.setName(userName);
       print(authProvider.userName);
       if(accessToken != null || userType == 'patient'){
@@ -74,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
-      //ansarifarhan2316@gmail.com
-      //ansariFarhan
+      //drscorpion4@gmail.com
+      //farhan123
       //physician
       //opthalmologist
       //pediatrician

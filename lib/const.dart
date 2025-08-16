@@ -11,4 +11,5 @@ String userId = '';
 String userType = '';
 String hospitalsId = '';
 String userDob = '';
+String userEmail = '';
 String apiURL = Environment.apiUrl;

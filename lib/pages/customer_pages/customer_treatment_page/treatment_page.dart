@@ -22,6 +22,9 @@ class CustomerTreatmentPage extends StatefulWidget {
 class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
 
   String userName = '';
+  String userGender = '';
+  String age = '';
+  String height = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -32,8 +35,12 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
   Future<void> _loadUserName() async {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
     String? name = await secureStorage.read(key: 'user_name');
+    String? Gender = await secureStorage.read(key: 'gender');
+    String? userHeight = await secureStorage.read(key: 'height');
     setState(() {
-      userName = name ?? 'Guest'; // Fallback if null
+      userName = name ?? 'Guest';// Fallback if null
+      gender = Gender!;
+      height = userHeight!; // Fallback if null
     });
   }
 
@@ -103,8 +110,9 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(text: userName, isHeading: true),
-                          CustomText(text: 'Male, 23 y.o', isSubHeading: true),
-                          CustomText(text: 'Height: 5\'7', isContent: true),
+                          CustomText(text: gender, isSubHeading: true),
+                          CustomText(text: age, isSubHeading: true),
+                          CustomText(text: height, isContent: true),
                           SizedBox(height: 16),
                           CustomContainer(
                             verticalPad: 8,

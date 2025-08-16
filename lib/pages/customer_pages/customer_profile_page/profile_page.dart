@@ -32,6 +32,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     CustomerProfileProvider customerProfileProvider = Provider.of<CustomerProfileProvider>(context,listen: false);
     super.initState();
     _loadInitialImage();
+    _loadUserDetails();
   }
 
   @override
@@ -105,11 +106,21 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     }
   }
 
-  Future<void> _loadUserName() async {
+  Future<void> _loadUserDetails() async {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
     String? name = await secureStorage.read(key: 'user_name');
+    String? Gender = await secureStorage.read(key: 'gender');
+    String? userDob = await secureStorage.read(key: 'user_dob');
+    String? userHeight = await secureStorage.read(key: 'height');
+    String? userWeight = await secureStorage.read(key: 'weight');
+    String? email = await secureStorage.read(key: 'user_email');
     setState(() {
       userName = name ?? signedInName ; // Fallback if null
+      gender = Gender!; // Fallback if null
+      userDob = userDob; // Fallback if null
+      height = userHeight!; // Fallback if null
+      weight = userWeight!;// Fallback if null
+      userEmail = email!;
     });
   }
 
@@ -224,7 +235,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     children: [
                       CustomText(text: 'DOB: ',isContent: true,),
                       SizedBox(width: 8,),
-                      CustomText(text: '2058-10-23',isContent: true,)
+                      CustomText(text: userDob,isContent: true,)
                     ],
                   ),
                   SizedBox(height: 8,),
@@ -232,7 +243,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     children: [
                       CustomText(text: 'Height: ',isContent: true,),
                       SizedBox(width: 8,),
-                      CustomText(text: '5\'7',isContent: true,)
+                      CustomText(text: height,isContent: true,)
                     ],
                   ),
                   SizedBox(height: 8,),
@@ -240,7 +251,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     children: [
                       CustomText(text: 'Weight:',isContent: true,),
                       SizedBox(width: 8,),
-                      CustomText(text: '82 kg',isContent: true,)
+                      CustomText(text: weight,isContent: true,)
                     ],
                   ),
                   SizedBox(height: 8,),
@@ -248,7 +259,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     children: [
                       CustomText(text: 'Email:',isContent: true,),
                       SizedBox(width: 8,),
-                      CustomText(text: 'ansarifarhan2316@gmail.com',isContent: true,)
+                      CustomText(text: userEmail,isContent: true,)
                     ],
                   ),
                 ],
