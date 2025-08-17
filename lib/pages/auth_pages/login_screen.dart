@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isChecked = false;
   final _formState = GlobalKey<FormState>();
   AuthenticationProvider? authProvider;
+  int date = 0;
 
 
   late SharedPreferences prefs;
@@ -73,6 +74,10 @@ class _LoginPageState extends State<LoginPage> {
       print(height);
       print(weight);
       print(userEmail);
+      DateTime Today = DateTime.now();
+      DateTime dob = DateTime.parse(userDob);
+      date = dob.year - Today.year;
+      print(date);
       await SessionController.instance.saveSession(accessToken, userId,userName,userType,gender,userDob,height,weight,userEmail);
       authProvider.setName(userName);
       print(authProvider.userName);
