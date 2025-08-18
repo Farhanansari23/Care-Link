@@ -176,6 +176,9 @@ class _LoginPageState extends State<LoginPage> {
                                 value: authProvider.rememberMe,
                                 onChanged: (value) {
                                   authProvider.toggleRememberMe(value!);
+                                  if(authProvider.rememberMe){
+
+                                  }
 
                                 }),
                             CustomText(

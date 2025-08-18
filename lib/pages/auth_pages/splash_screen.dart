@@ -40,11 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         MaterialPageRoute(
           builder:
               (context) =>
-                  hasToken || userType == 'patient'
-                      ? const CustomerDashboard()
-                      : userType == 'admin'
-                      ? AdminDashboard()
-                      : const LoginPage(),
+                  userType == 'patient' ? const CustomerDashboard() :  AdminDashboard() ,
         ),
       );
     });
