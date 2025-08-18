@@ -23,7 +23,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
 
   String userName = '';
   String userGender = '';
-  String age = '';
+  String patientAge = '';
   String height = '';
   @override
   void initState() {
@@ -37,10 +37,12 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
     String? name = await secureStorage.read(key: 'user_name');
     String? Gender = await secureStorage.read(key: 'gender');
     String? userHeight = await secureStorage.read(key: 'height');
+    String? userAge = await secureStorage.read(key: 'age');
     setState(() {
       userName = name ?? 'Guest';// Fallback if null
       gender = Gender!;
       height = userHeight!; // Fallback if null
+      patientAge = userAge!;
     });
   }
 
