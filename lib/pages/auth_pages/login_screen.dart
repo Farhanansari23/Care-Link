@@ -39,67 +39,7 @@ class _LoginPageState extends State<LoginPage> {
     prefs = await SharedPreferences.getInstance();
   }
 
-  void  login () async {
-    AuthenticationProvider authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
 
-    final Url = 'http://localhost:3000/api/auth/login';
-
-    Map<String,dynamic> body = {
-      // "email":"ansarifarhan2316@gmail.com",
-      // "pwd":"ansariFarhan",
-      "email": authProvider.userEmailTextEditingController.text.trim(),
-      "pwd":authProvider.userPasswordTextEditingController.value.text,
-    };
-
-    var response = await http.post(Uri.parse(Url),
-        headers: {
-          'Content-Type': 'Application/json',
-          'Authorization': 'Bearer $accessToken',
-        },
-        body: jsonEncode(body));
-    final decodedBody = jsonDecode(response.body);
-    print(decodedBody);
-    if(response.statusCode == 200){
-      accessToken = decodedBody["token"];
-      userName = decodedBody["user"]["name"];
-      userId = decodedBody["user"]["_id"];
-      userType = decodedBody["user"]["user_type"];
-      gender = decodedBody["user"]["gender"];
-      userDob = decodedBody["user"]["dob"];
-      height = decodedBody["user"]["height"];
-      weight = decodedBody["user"]["weight"];
-      userEmail = decodedBody["user"]["email"];
-      print(gender);
-      print(userDob);
-      print(height);
-      print(weight);
-      print(userEmail);
-      DateTime Today = DateTime.now();
-      DateTime dob = DateTime.parse(userDob);
-      date = dob.year - Today.year;
-      print(date);
-      await SessionController.instance.saveSession(accessToken, userId,userName,userType,gender,userDob,height,weight,userEmail);
-      authProvider.setName(userName);
-      print(authProvider.userName);
-      if(accessToken != null || userType == 'patient'){
-        Navigator.of(context).pushNamed(UserConstants.userDashboard);
-      }else{
-        Navigator.of(context).pushNamed(AdminConstants.adminDashboard);
-      }
-
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
-      //drscorpion4@gmail.com
-      //farhan123
-      //physician
-      //opthalmologist
-      //pediatrician
-      //onocologist
-    }
-    print(response.statusCode);
-    print(response.body);
-    print(userId);
-    // print(body);
-  }
 
   @override
   void initState() {
@@ -306,4 +246,69 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
   }
+
+  void  login () async {
+    AuthenticationProvider authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
+
+    final Url = 'http://localhost:3000/api/auth/login';
+
+    Map<String,dynamic> body = {
+      // "email":"ansarifarhan2316@gmail.com",
+      // "pwd":"ansariFarhan",
+      "email": authProvider.userEmailTextEditingController.text.trim(),
+      "pwd":authProvider.userPasswordTextEditingController.value.text,
+    };
+
+    var response = await http.post(Uri.parse(Url),
+        headers: {
+          'Content-Type': 'Application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+        body: jsonEncode(body));
+    final decodedBody = jsonDecode(response.body);
+    print(decodedBody);
+    if(response.statusCode == 200){
+      accessToken = decodedBody["token"];
+      userName = decodedBody["user"]["name"];
+      userId = decodedBody["user"]["_id"];
+      userType = decodedBody["user"]["user_type"];
+      gender = decodedBody["user"]["gender"];
+      userDob = decodedBody["user"]["dob"];
+      height = decodedBody["user"]["height"];
+      weight = decodedBody["user"]["weight"];
+      userEmail = decodedBody["user"]["email"];
+      DateTime Today = DateTime.now();
+      DateTime dob = DateTime.parse(userDob);
+      date = Today.year - dob.year;
+      age = date.toString();
+
+      print("Age: ${date}");
+      await SessionController.instance.saveSession(accessToken, userId,userName,userType,gender,userDob,height,weight,userEmail,age);
+      authProvider.setName(userName);
+      print(authProvider.userName);
+      if(userType == 'patient'){
+        Navigator.of(context).pushNamed(UserConstants.userDashboard);
+        print(userType);
+      }else if(userType == 'admin'){
+        print(userType);
+        Navigator.of(context).pushNamedAndRemoveUntil(AdminConstants.adminDashboard,(route) => false);
+      }else{
+        Navigator.of(context).pushNamed(UserConstants.logInPage);
+      }
+
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerScreen()));
+      //drscorpion4@gmail.com
+      //farhan123
+      //physician
+      //opthalmologist
+      //pediatrician
+      //onocologist
+    }
+    print(response.statusCode);
+    print(response.body);
+    print(userId);
+    // print(body);
+  }
+
+
 }
