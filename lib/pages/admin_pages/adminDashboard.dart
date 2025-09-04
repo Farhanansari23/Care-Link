@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 import 'package:semester_project/widgets/container/custom_container.dart';
+import 'package:semester_project/widgets/drawer/admin_drawer.dart';
 
 import '../../provider/customer_provider/customer_provider.dart';
 import '../../widgets/text/custom_text.dart';
@@ -20,6 +21,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return  Scaffold(
       backgroundColor: CustomColors.backgroudColor,
       body: _body(context),
+      drawer: AdminDrawer(
+        isHomeActive: true,
+      ),
     );
   }
 
@@ -31,14 +35,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
           slivers: [
            SliverAppBar(
              title: Text("Admin Dashboard",style: TextStyle(color: Colors.white),),
-             leading: Icon(Icons.menu,color: Colors.white,),
-             backgroundColor: Colors.deepPurple,
-             expandedHeight: 300,
-             flexibleSpace: FlexibleSpaceBar(
-               background: Container(
-                 color: Colors.white,
-               ),
+             leading: IconButton(
+               color: Colors.white,
+               onPressed: () {
+                 Scaffold.of(context).openDrawer();
+               },
+               icon: Icon(Icons.menu),
              ),
+             backgroundColor: Colors.deepPurple,
+             expandedHeight: 200,
+             floating: true,
+             // flexibleSpace: FlexibleSpaceBar(
+             //   background: Container(
+             //     color: Colors.white,
+             //   ),
+             // ),
            ),
             SliverToBoxAdapter(
               child:  CustomContainer(
