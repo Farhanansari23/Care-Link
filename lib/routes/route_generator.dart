@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
-import '../pages/admin_pages/adminDashboard.dart';
+import '../pages/admin_dashboard/admin_dashboard.dart';
 import '../pages/auth_pages/forgot_passwordscreen.dart';
 import '../pages/auth_pages/login_screen.dart';
 import '../pages/auth_pages/signup_page.dart';
