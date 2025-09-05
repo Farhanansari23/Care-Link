@@ -7,7 +7,7 @@ import '../../routes/route_generator_constants.dart';
 import '../../widgets/buttons/custom_elevatedbutton.dart';
 import '../../widgets/colors/custom_colors.dart';
 import '../../widgets/text/custom_text.dart';
-import '../admin_pages/adminDashboard.dart';
+import '../admin_dashboard/admin_dashboard.dart';
 import '../customer_pages/customer_dashboard/customer_dashboard.dart';
 import 'login_screen.dart';
 
