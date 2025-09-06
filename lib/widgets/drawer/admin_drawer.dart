@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:semester_project/routes/admin_route_generator.dart';
 import '../../classes/secure_storage.dart';
 import '../../const.dart';
 import '../../provider/customer_provider/customer_profile_provider.dart';
@@ -101,21 +102,21 @@ class _AdminDrawerState extends State<AdminDrawer> {
               textColor: Colors.black,
               tabColor: CustomColors.lightBlue,
             ),
+            // CustomListTile(
+            //   onTap: (){
+            //     // Navigator.of(context).pushNamed(UserConstants.userTreatmentPage);
+            //   },
+            //   isTabActive: widget.isDoctorActive,
+            //   icon: FontAwesomeIcons.bookMedical,
+            //   tabColor: CustomColors.lightBlue,
+            //   iconSize: 20,
+            //   imgColor: Colors.black,
+            //   text: 'Doctor',
+            //   textColor: Colors.black,
+            // ),
             CustomListTile(
               onTap: (){
-                // Navigator.of(context).pushNamed(UserConstants.userTreatmentPage);
-              },
-              isTabActive: widget.isDoctorActive,
-              icon: FontAwesomeIcons.bookMedical,
-              tabColor: CustomColors.lightBlue,
-              iconSize: 20,
-              imgColor: Colors.black,
-              text: 'Doctor',
-              textColor: Colors.black,
-            ),
-            CustomListTile(
-              onTap: (){
-                // Navigator.of(context).pushNamed(UserConstants.userHospitalListPage);
+                Navigator.of(context).pushNamed(AdminConstants.adminCreateHealthCenter);
               },
               isTabActive: widget.isHospitalActive,
               icon: FontAwesomeIcons.hospital,
