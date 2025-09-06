@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
 import '../pages/admin_pages/admin_dashboard/admin_dashboard.dart';
 import '../pages/admin_pages/health_center/create_health_center.dart';
+import '../pages/admin_pages/health_center/health_center_list.dart';
 import '../pages/auth_pages/forgot_passwordscreen.dart';
 import '../pages/auth_pages/login_screen.dart';
 import '../pages/auth_pages/signup_page.dart';
@@ -67,6 +68,10 @@ class RouteGenerator{
       case AdminConstants.adminCreateHealthCenter :
         return MaterialPageRoute(
           builder: (_) => const AdminCreateHealthCenterPage(),
+        );
+        case AdminConstants.adminHealthCenterList :
+        return MaterialPageRoute(
+          builder: (_) => const AdminHealthCenterList(),
         );
 
       default:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:semester_project/routes/admin_route_generator.dart';
 import 'package:semester_project/widgets/colors/custom_colors.dart';
 import 'package:semester_project/widgets/container/custom_container.dart';
 import 'package:semester_project/widgets/drawer/admin_drawer.dart';
@@ -48,21 +49,26 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 stretch: true,
               ),
               SliverToBoxAdapter(
-                child:  CustomContainer(
-                  verticalMargin: 16,
-                  verticalPad: 8,
-                  horizontalMargin: 16,
-                  color:Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(text: 'List of Hospitals',isHeading: true,),
-                      SizedBox(height: 16,),
-                      CustomText(text: 'koshi Hospital',),
-                      CustomText(text: 'Golden Hospital',),
-                      CustomText(text: 'Nobel Hospital',),
-                      CustomText(text: 'Birat Teaching Hospital',),
-                    ],
+                child: InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, AdminConstants.adminHealthCenterList);
+                  },
+                  child: CustomContainer(
+                    verticalMargin: 16,
+                    verticalPad: 8,
+                    horizontalMargin: 16,
+                    color:Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(text: 'List of Hospitals',isHeading: true,),
+                        SizedBox(height: 16,),
+                        CustomText(text: 'koshi Hospital',),
+                        CustomText(text: 'Golden Hospital',),
+                        CustomText(text: 'Nobel Hospital',),
+                        CustomText(text: 'Birat Teaching Hospital',),
+                      ],
+                    ),
                   ),
                 ),
               ),
