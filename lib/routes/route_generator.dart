@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
 import '../pages/admin_pages/admin_dashboard/admin_dashboard.dart';
+import '../pages/admin_pages/appointments/appointment_page.dart';
 import '../pages/admin_pages/health_center/create_health_center.dart';
 import '../pages/admin_pages/health_center/health_center_list.dart';
 import '../pages/auth_pages/forgot_passwordscreen.dart';
@@ -73,9 +74,15 @@ class RouteGenerator{
         return MaterialPageRoute(
           builder: (_) => const AdminHealthCenterList(),
         );
+      case AdminConstants.adminDoctorsAppointmentDetails :
+        return MaterialPageRoute(
+          builder: (_) => const AppointmentPage(),
+        );
 
       default:
         return MaterialPageRoute(builder: (_) => ErrorPage());
     }
   }
 }
+
+//adminDoctorsAppointmentDetails

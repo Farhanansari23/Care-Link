@@ -43,7 +43,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   },
                   icon: Icon(Icons.menu),
                 ),
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: CustomColors.primaryColor,
                 expandedHeight: 80,
                 floating: true,
                 stretch: true,
@@ -73,53 +73,58 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ),
               ),
               SliverToBoxAdapter(
-                child:  CustomContainer(
-                  verticalMargin: 8,
-                  verticalPad: 8,
-                  horizontalMargin: 16,
-                  color:Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(text: 'Number of Appointments',isHeading: true,),
-                      SizedBox(height: 16,),
-                      Row(
-                        children: [
-                          CustomText(text: 'Dr Ghanshyam Jha: ',isContent: true,),
-                          CustomText(text: '6',isContent: true,),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CustomText(text: 'Dr Chandrapal Jha: ',isContent: true,),
-                          CustomText(text: '4',isContent: true,),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CustomText(text: 'Dr Rajesh Yadav: ',isContent: true,),
-                          CustomText(text: '2',isContent: true,),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CustomText(text: 'Dr Sushil karna',isContent: true,),
-                          CustomText(text: '3',isContent: true,),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CustomText(text: 'Dr Anju Dev: ',isContent: true,),
-                          CustomText(text: '3',isContent: true,),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CustomText(text: 'Dr Anand Rouniyar: ',isContent: true,),
-                          CustomText(text: '3',isContent: true,),
-                        ],
-                      ),
-                    ],
+                child:  InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, AdminConstants.adminDoctorsAppointmentDetails);
+                  },
+                  child: CustomContainer(
+                    verticalMargin: 8,
+                    verticalPad: 8,
+                    horizontalMargin: 16,
+                    color:Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(text: 'Number of Appointments',isHeading: true,),
+                        SizedBox(height: 16,),
+                        Row(
+                          children: [
+                            CustomText(text: 'Dr Ghanshyam Jha: ',isContent: true,),
+                            CustomText(text: '6',isContent: true,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            CustomText(text: 'Dr Chandrapal Jha: ',isContent: true,),
+                            CustomText(text: '4',isContent: true,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            CustomText(text: 'Dr Rajesh Yadav: ',isContent: true,),
+                            CustomText(text: '2',isContent: true,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            CustomText(text: 'Dr Sushil karna',isContent: true,),
+                            CustomText(text: '3',isContent: true,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            CustomText(text: 'Dr Anju Dev: ',isContent: true,),
+                            CustomText(text: '3',isContent: true,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            CustomText(text: 'Dr Anand Rouniyar: ',isContent: true,),
+                            CustomText(text: '3',isContent: true,),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
