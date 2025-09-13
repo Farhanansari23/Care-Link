@@ -76,6 +76,14 @@ class _AdminHealthCenterListState extends State<AdminHealthCenterList> {
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
+          actions: [
+            IconButton(
+                onPressed: (){
+
+                },
+                icon: Icon(Icons.local_hospital,color: Colors.white,),
+            ),
+          ],
           backgroundColor: CustomColors.primaryColor,
           expandedHeight: 80,
           floating: true,
