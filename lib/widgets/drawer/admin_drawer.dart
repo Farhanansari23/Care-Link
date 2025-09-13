@@ -102,18 +102,6 @@ class _AdminDrawerState extends State<AdminDrawer> {
               textColor: Colors.black,
               tabColor: CustomColors.lightBlue,
             ),
-            // CustomListTile(
-            //   onTap: (){
-            //     // Navigator.of(context).pushNamed(UserConstants.userTreatmentPage);
-            //   },
-            //   isTabActive: widget.isDoctorActive,
-            //   icon: FontAwesomeIcons.bookMedical,
-            //   tabColor: CustomColors.lightBlue,
-            //   iconSize: 20,
-            //   imgColor: Colors.black,
-            //   text: 'Doctor',
-            //   textColor: Colors.black,
-            // ),
             CustomListTile(
               onTap: (){
                 Navigator.of(context).pushNamed(AdminConstants.adminCreateHealthCenter);
@@ -123,6 +111,15 @@ class _AdminDrawerState extends State<AdminDrawer> {
               iconSize: 20,
               text: 'Hospital',textColor: Colors.black,
             ),
+            CustomListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed(AdminConstants.adminCreateDoctorPage);
+              },
+              isTabActive: widget.isHospitalActive,
+              icon: FontAwesomeIcons.userDoctor,
+              iconSize: 20,
+              text: 'Doctors',textColor: Colors.black,
+            ),
             InkWell(
               onTap: (){
                 // Navigator.of(context).pushNamed(UserConstants.userProfilePage);
@@ -130,7 +127,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: 0.0,
-                  left: 10.0,
+                  left: 6.0,
                   bottom: 8.0,
                 ),
                 child: Row(

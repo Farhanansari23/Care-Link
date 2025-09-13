@@ -3,4 +3,5 @@ class AdminConstants{
   static const String adminCreateHealthCenter = '/adminCreateHealthCenter';
   static const String adminHealthCenterList = '/adminHealthCenterList';
   static const String adminDoctorsAppointmentDetails = '/adminDoctorsAppointmentDetails';
+  static const String adminCreateDoctorPage = '/adminCreateDoctorPage';
 }
