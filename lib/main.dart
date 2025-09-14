@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:semester_project/pages/auth_pages/splash_screen.dart';
 import 'package:semester_project/pages/customer_pages/customer_dashboard/customer_dashboard.dart';
+import 'package:semester_project/provider/admin_provider/create_doctorprofile_provider.dart';
 import 'package:semester_project/provider/auth_provider/auth_provider.dart';
 import 'package:semester_project/provider/customer_provider/customer_doctorsdetail_provider.dart';
 import 'package:semester_project/provider/customer_provider/customer_hospitaidetail_provider.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CustomerHospitalDetailProvider()),
         ChangeNotifierProvider(create: (context) => CustomersDoctorDetailProvider()),
         ChangeNotifierProvider(create: (context) => CustomerProfileProvider()),
+        ChangeNotifierProvider(create: (context) => CreateDoctorProfileProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

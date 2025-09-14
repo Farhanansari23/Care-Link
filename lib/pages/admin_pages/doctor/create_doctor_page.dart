@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:semester_project/widgets/container/custom_container.dart';
+import 'package:semester_project/widgets/textfield/custom_textfield.dart';
 
+import '../../../provider/admin_provider/create_doctorprofile_provider.dart';
 import '../../../routes/admin_route_generator.dart';
 import '../../../widgets/colors/custom_colors.dart';
 
@@ -32,12 +35,34 @@ class _CreateDoctorPageState extends State<CreateDoctorPage> {
             stretch: true,
           ),
           SliverToBoxAdapter(
-            child: CustomContainer(
-                child: Column(
-                  children: [
-
-                  ],
-                )),
+            child: Consumer<CreateDoctorProfileProvider>(
+              builder: (context,createDoctorProfileProvider,_) {
+                return CustomContainer(
+                    child: Column(
+                      children: [
+                          TextFromFieldWithPrefixSuffix(
+                              controller: createDoctorProfileProvider.nameController,
+                            glassEffect: true,
+                            hintText: 'Enter your Name',
+                            blurAmount: 4.0,
+                            glassOpacity: 0.4,
+                            borderColor: Colors.white, // Default border color
+                            focusedBorderColor: Colors.blue, // Color when focused
+                            enabledBorderColor: Colors.grey, // Color when enabled
+                            errorBorderColor: Colors.red,
+                            borderRadius: 16,
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: Colors.grey.shade600,
+                            ),
+                              validator: (value){
+                                return null;
+                              },
+                          ),
+                      ],
+                    ));
+              }
+            ),
           ),
         ],
       ),
