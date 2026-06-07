@@ -14,7 +14,6 @@ import '../../widgets/dropdown/custom_dropdown.dart';
 import '../../widgets/text/custom_text.dart';
 import '../../widgets/textfield/custom_textfield.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:http/http.dart' as http;
 
 import '../../widgets/utils/custom_utils.dart';

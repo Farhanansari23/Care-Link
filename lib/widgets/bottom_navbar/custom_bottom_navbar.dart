@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:semester_project/routes/route_generator_constants.dart';
 import 'package:semester_project/widgets/colors/custom_colors.dart';
@@ -33,7 +33,7 @@ class CustomBottomNavBar extends StatelessWidget {
               onPressed: (){
                 Navigator.of(context).pushNamed(UserConstants.userDashboard);
               },
-                icon: FontAwesomeIcons.house,
+                icon: FontAwesomeIcons.house.data,
                 text: 'Home',
                 gap: 8,
             ),
@@ -41,12 +41,12 @@ class CustomBottomNavBar extends StatelessWidget {
               onPressed: (){
                 Navigator.of(context).pushNamed(UserConstants.userTreatmentPage);
               },
-                icon: FontAwesomeIcons.stethoscope,
+                icon: FontAwesomeIcons.stethoscope.data,
                 text: 'Treatment',
                 gap: 8,
             ),
             GButton(
-                icon: FontAwesomeIcons.hospital,
+                icon: FontAwesomeIcons.hospital.data,
                 text: 'Hospitals',
                 gap: 8,
             ),

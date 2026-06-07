@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   horizontalMargin: 16,
                   horizontalPad: 24,
                   glassEffect: true,
-                  height: 0.36,
+                  height: 0.40,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height * 0.5,
@@ -251,6 +251,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void  login () async {
+
+    Navigator.of(context).pushNamed(UserConstants.userDashboard);
     AuthenticationProvider authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
 
     final Url = 'http://localhost:3000/api/auth/login';

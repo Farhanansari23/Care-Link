@@ -116,7 +116,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                           CircleAvatar(
                               radius: 28,
                               backgroundColor: Colors.white,
-                              child: Icon(FontAwesomeIcons.bell,size: 26,)),
+                              child: FaIcon(FontAwesomeIcons.bell,size: 26,)),
                         ],
                       ),
                     ),
@@ -202,7 +202,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                                       padding: const EdgeInsets.only(left: 5,top: 3),
                                       child: CircleAvatar(
                                         radius: 24,
-                                        child: Icon(FontAwesomeIcons.calendar,color: Colors.white,size: 24,),
+                                        child: FaIcon(FontAwesomeIcons.calendar,color: Colors.white,size: 24,),
                                         backgroundColor: CustomColors.lightBlue,
                                       ),
                                     ),
@@ -224,7 +224,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                                       padding: const EdgeInsets.only(left: 5,top: 3),
                                       child: CircleAvatar(
                                         radius: 24,
-                                        child: Icon(FontAwesomeIcons.clock,color: Colors.white,size: 24,),
+                                        child: FaIcon(FontAwesomeIcons.clock,color: Colors.white,size: 24,),
                                         backgroundColor: CustomColors.lightBlue,
                                       ),
                                     ),
@@ -285,7 +285,7 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
                                                     padding: const EdgeInsets.only(left: 5,top: 3),
                                                     child: CircleAvatar(
                                                       radius: 24,
-                                                      child: Icon(FontAwesomeIcons.phone,color: Colors.white,size: 20,),
+                                                      child: FaIcon(FontAwesomeIcons.phone,color: Colors.white,size: 20,),
                                                       backgroundColor: CustomColors.lightBlue,
                                                     ),
                                                   ),
