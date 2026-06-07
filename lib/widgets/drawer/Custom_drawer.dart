@@ -77,7 +77,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ? NetworkImage(customerProfileProvider.imageUrl!)
                           : null,
                       child: customerProfileProvider.imageUrl == null
-                          ? Icon(FontAwesomeIcons.user, size: 20)
+                          ? FaIcon(FontAwesomeIcons.user, size: 20)
                           : null,
                     ),
                     SizedBox(width: 16,),
@@ -141,7 +141,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ? NetworkImage(customerProfileProvider.imageUrl!)
                           : null,
                       child: customerProfileProvider.imageUrl == null
-                          ? Icon(FontAwesomeIcons.user, size: 20)
+                          ? FaIcon(FontAwesomeIcons.user, size: 20)
                           : null,
                     ),
                     SizedBox(width: 8),

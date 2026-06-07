@@ -160,7 +160,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                                        padding: const EdgeInsets.only(left: 5,top: 3),
                                                        child: CircleAvatar(
                                                          radius: 24,
-                                                         child: Icon(FontAwesomeIcons.calendar,color: Colors.white,size: 24,),
+                                                         child: FaIcon(FontAwesomeIcons.calendar,color: Colors.white,size: 24,),
                                                          backgroundColor: CustomColors.lightBlue,
                                                        ),
                                                      ),
@@ -182,7 +182,7 @@ class _CustomerDoctorListPageState extends State<CustomerDoctorListPage> {
                                                        padding: const EdgeInsets.only(left: 5,top: 3),
                                                        child: CircleAvatar(
                                                          radius: 24,
-                                                         child: Icon(FontAwesomeIcons.clock,color: Colors.white,size: 24,),
+                                                         child: FaIcon(FontAwesomeIcons.clock,color: Colors.white,size: 24,),
                                                          backgroundColor: CustomColors.lightBlue,
                                                        ),
                                                      ),

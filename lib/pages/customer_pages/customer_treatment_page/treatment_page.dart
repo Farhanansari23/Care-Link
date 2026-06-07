@@ -92,7 +92,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
                   ),
                   CustomText(text: 'Treatment', size: 24),
                   CircleAvatar(
-                    child: Icon(FontAwesomeIcons.ellipsisVertical),
+                    child: FaIcon(FontAwesomeIcons.ellipsisVertical),
                     radius: 24,
                     backgroundColor: Colors.white,
                   ),
@@ -188,7 +188,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      child: Icon(
+                                      child: FaIcon(
                                         FontAwesomeIcons.calendar,
                                         color: Colors.white,
                                       ),
@@ -241,7 +241,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
                                     SizedBox(width: 24),
                                     CircleAvatar(
                                       backgroundColor: CustomColors.lightBlue,
-                                      child: Icon(
+                                      child: FaIcon(
                                         FontAwesomeIcons.phone,
                                         color: Colors.white,
                                         size: 18,
@@ -275,7 +275,7 @@ class _CustomerTreatmentPageState extends State<CustomerTreatmentPage> {
                             Row(
                               children: [
                                 CircleAvatar(
-                                  child: Icon(
+                                  child: FaIcon(
                                     FontAwesomeIcons.calendar,
                                     color: Colors.white,
                                   ),

@@ -30,7 +30,7 @@ class CustomListTile extends StatelessWidget {
   Function() onTap;
   final bool isTabActive;
   final Color? tabColor;
-  final IconData? icon;
+  final FaIconData? icon;
   final double? iconSize;
   final Color? iconColor;
   final String text;
